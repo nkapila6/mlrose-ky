@@ -168,20 +168,6 @@ BibTeX entries:
                     <sub><b>Nikhil Kapila</b></sub>
                 </a>
             </td>
-            <td align="center">
-                <a href="https://github.com/knakamura13">
-                    <img src="https://avatars.githubusercontent.com/u/20162718?v=4" width="100;" alt="knakamura13"/>
-                    <br />
-                    <sub><b>Kyle Nakamura</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/gitongah">
-                    <img src="https://avatars.githubusercontent.com/u/39062444?v=4" width="100;" alt="gitongah"/>
-                    <br />
-                    <sub><b>Edwin Mbaabu</b></sub>
-                </a>
-            </td>
 		</tr>
 	<tbody>
 </table>
@@ -361,14 +347,21 @@ BibTeX entries:
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/zerolinux5">
+                    <img src="https://avatars.githubusercontent.com/u/1896803?v=4" width="100;" alt="zerolinux5"/>
+                    <br />
+                    <sub><b> Jesus Magana</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
                 <a href="https://github.com/ksbeattie">
                     <img src="https://avatars.githubusercontent.com/u/1534843?v=4" width="100;" alt="ksbeattie"/>
                     <br />
                     <sub><b>Keith Beattie</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/cbhyphen">
                     <img src="https://avatars.githubusercontent.com/u/12734117?v=4" width="100;" alt="cbhyphen"/>
