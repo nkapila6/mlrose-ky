@@ -8,7 +8,7 @@ Since NeuralNetwork() is a child class of sklearn's ClassifierMixin, it has acce
 In this example, we shall find weights using genetic algorithms (GA).
 Note: If you used torch in A1, then it's best to peruse the pyperch library instead. Otherwise, you'd have to re-do your A1 neural network experiments in sklearn.
 
-## Import libraries
+### Import libraries
 
 
 ```python
@@ -32,7 +32,7 @@ warnings.filterwarnings('ignore')
 rng = 1
 ```
 
-## Loading the dataset and some pre-processing
+### Loading the dataset and some pre-processing
 
 We load the wine dataset, apply bins and perform scaling to reduce fit times.
 
@@ -59,7 +59,7 @@ X_train = scaler.fit_transform(X_train1)
 X_test = scaler.transform(X_test1)
 ```
 
-## Instantiating the NeuralNetwork Object
+### Instantiating the NeuralNetwork Object
 
 We instantiate the NeuralNetwork() object and define the different pop sizes we want to perform validation on by keeping other parameters constant.
 
@@ -77,7 +77,7 @@ nn_ga = NeuralNetwork(hidden_nodes=[10],
 pop_sizes = [50,100,200,500,700,1000]
 ```
 
-## Validation Curves
+### Validation Curves
 Here we use scikit-learn's validation_curve() method and ValidationCurveDisplayMethod(). Hear your computer go brrrr if you use n_jobs=-1!
 
 
@@ -112,7 +112,7 @@ plt.title("GA: Varying population sizes")
     
 
 
-## Learning curve
+### Learning curve
 Once you have identified the best parameter combination using manual tuning, grid search or whatever library. You can make a new classifier to plot the learning curve.
 
 Here we identify that a pop_size of 100 and mutation probability of 25% works well so we go ahead and define the new classifier below.
@@ -159,7 +159,7 @@ plt.title("GA: Learning Curve")
     
 
 
-## Loss curve
+### Loss curve
 Once .fit() is called on your final classifier. We can use the .fitness_curve on the object to get our loss curve out.
 The length is used as a training iteration and the second column gives us the loss values.
 
@@ -180,7 +180,7 @@ plt.xlabel('Training Iteration')
     
 
 
-## Computing performance on the test set.
+### Computing performance on the test set.
 Similar to sklearn, we can use the .predict() method to use our TRAINED GA classifier to make predictions on the test set.
 These predictions are then checked against original target labels to give us the accuracy.
 
