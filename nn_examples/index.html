@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>3 - Using Neural Network Runners - 📈 mlrose-ky</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "3 - Using Neural Network Runners";
+        var mkdocs_page_input_path = "nn_examples.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 📈 mlrose-ky
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">🏚️ Home</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="..#user-guide">User Guide</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#tutorial-1-getting-started">Tutorial 1 - Getting Started</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#tutorial-2-travelling-saleperson-problems">Tutorial 2 - Travelling Saleperson Problems</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#tutorial-3-ml-weight-optimization-problems">Tutorial 3 - ML Weight Optimization Problems</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#tutorial-4-using-runners">Tutorial 4 - Using Runners</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../about/">？ About</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../about/#project-background">Project Background</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../about/#main-features">Main Features</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../about/#project-improvements-and-updates">Project Improvements and Updates</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../about/#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../about/#licensing-authors-acknowledgements">Licensing, Authors, Acknowledgements</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="https://github.com/knakamura13/mlrose-ky">🔗 Github</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">↯ Randomized Optimizations</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../opt_probs/">🤔 Optimization Problems</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../opt_probs/#discrete-optimization-problem">Discrete Optimization Problem</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../opt_probs/#continuous-optimization-problem">Continuous Optimization Problem</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../opt_probs/#travelling-salesperson-optimization-problem">Travelling Salesperson Optimization Problem</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../algorithms/">🛹 Algorithms</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../algorithms/#hill-climbing">Hill Climbing</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../algorithms/#references">References</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../algorithms/#random-hill-climbing">Random Hill Climbing</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../algorithms/#references_1">References</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../algorithms/#simulated-annealing">Simulated Annealing</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../algorithms/#references_2">References</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../algorithms/#genetic-algorithms">Genetic Algorithms</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../algorithms/#references_3">References</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../algorithms/#mimic">MIMIC</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../algorithms/#references_4">References</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../decay/">📅 Decay Schedules</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../decay/#geometric-decay">Geometric Decay</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../decay/#formula">Formula</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../decay/#class-declaration">Class declaration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../decay/#class-method">Class method</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../decay/#example">Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../decay/#arithmetic-decay">Arithmetic Decay</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../decay/#formula_1">Formula</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../decay/#class-declaration_1">Class declaration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../decay/#class-method_1">Class method</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../decay/#example_1">Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../decay/#exponential-decay">Exponential Decay</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../decay/#formula_2">Formula</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../decay/#class-declaration_2">Class declaration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../decay/#class-method_2">Class method</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../decay/#example_2">Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../decay/#write-your-own-custom-schedule">Write your own custom schedule</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../decay/#example_3">Example</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../decay/#class-method_3">Class method</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../fitness/">🏃🏻 Fitness Functions</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../fitness/#one-max">One Max</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#formula">Formula</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-declaration">Class declaration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-method">Class method</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#example">Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../fitness/#flip-flops">Flip Flops</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#formula_1">Formula</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-declaration_1">Class declaration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-method_1">Class method</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#example_1">Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../fitness/#four-peaks">Four Peaks</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#formula_2">Formula</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-declaration_2">Class declaration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-method_2">Class method</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#example_2">Example</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#references">References</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../fitness/#six-peaks">Six Peaks</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#formula_3">Formula</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-declaration_3">Class declaration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-method_3">Class method</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#example_3">Example</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#references_1">References</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../fitness/#continuous-peaks">Continuous Peaks</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#formula_4">Formula</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-declaration_4">Class declaration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-method_4">Class method</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#example_4">Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../fitness/#knapsack">Knapsack</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#formula_5">Formula</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-declaration_5">Class declaration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-method_5">Class method</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#example_5">Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../fitness/#travelling-salesman-tsp">Travelling Salesman (TSP)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#formula_6">Formula</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-declaration_6">Class declaration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-method_6">Class method</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#example_6">Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../fitness/#n-queens">N-Queens</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#formula_7">Formula</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-declaration_7">Class declaration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-method_7">Class method</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#example_7">Example</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#references_2">References</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../fitness/#max-k-color">Max K Color</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#formula_8">Formula</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-declaration_8">Class declaration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-method_8">Class method</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#example_8">Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../fitness/#write-your-own-fitness-function">Write your own fitness function</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-declaration_9">Class declaration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#class-method_9">Class method</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="../fitness/#example_9">Example</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">🧠 Neural Networks</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../neural/">📉 Backpropagation using ROs</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../neural/#neural-network">Neural Network</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../neural/#linear-regression">Linear Regression</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../neural/#logistic-regression">Logistic Regression</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">🧑🏻‍💻 Tutorials</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorial1/">1 - Getting Started</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial1/#what-is-an-optimization-problem">What is an Optimization Problem?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial1/#why-use-randomized-optimization">Why use Randomized Optimization?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial1/#solving-optimization-problems-with-mlrose-ky">Solving Optimization Problems with mlrose-ky</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial1/#define-a-fitness-function-object">Define a Fitness Function Object</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial1/#define-an-optimization-problem-object">Define an Optimization Problem Object</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial1/#select-and-run-a-randomized-optimization-algorithm">Select and Run a Randomized Optimization Algorithm</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial1/#summary">Summary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial1/#references">References</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorial2/">2 - What is a Travelling Salesman Problem?</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial2/#what-is-a-travelling-salesperson-problem">What is a Travelling Salesperson Problem?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial2/#solving-tsps-with-mlrose-ky">Solving TSPs with mlrose-ky</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial2/#define-a-fitness-function-object">Define a Fitness Function Object</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial2/#define-an-optimization-problem-object">Define an Optimization Problem Object</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial2/#select-and-run-a-randomized-optimization-algorithm">Select and Run a Randomized Optimization Algorithm</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial2/#summary">Summary</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorial3/">3 - What is a Machine Learning Weight Optimization Problem?</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial3/#what-is-a-machine-learning-weight-optimization-problem">What is a Machine Learning Weight Optimization Problem?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial3/#solving-machine-learning-weight-optimization-problems-with-mlrose-ky">Solving Machine Learning Weight Optimization Problems with mlrose-ky</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../tutorial3/#example-the-iris-dataset">Example: the Iris Dataset</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial3/#data-pre-processing">Data Pre-Processing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial3/#neural-networks">Neural Networks</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial3/#linear-and-logistic-regression-models">Linear and Logistic Regression Models</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial3/#summary">Summary</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../runners/">4 - How to use Runners for Optimization Problems?</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../runners/#an-example-with-rhc-runner">An example with RHC Runner</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../runners/#use-runners-to-make-your-own-custom-wrapper">Use runners to make your own custom wrapper</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">📝 Examples</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../problem_examples/">1 - Runners in code</a>
+    <ul>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorial_examples/">2 - Fitness function in code</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial_examples/#import-libraries">Import Libraries</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial_examples/#example-1-8-queens-using-pre-defined-fitness-function">Example 1: 8-Queens Using Pre-Defined Fitness Function</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial_examples/#example-2-8-queens-using-custom-fitness-function">Example 2: 8-Queens Using Custom Fitness Function</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial_examples/#example-3-travelling-salesperson-using-coordinate-defined-fitness-function">Example 3: Travelling Salesperson Using Coordinate-Defined Fitness Function</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial_examples/#example-4-travelling-salesperson-using-distance-defined-fitness-function">Example 4: Travelling Salesperson Using Distance-Defined Fitness Function</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial_examples/#example-5-travelling-salesperson-defining-fitness-function-as-part-of-optimization-problem-definition-step">Example 5: Travelling Salesperson Defining Fitness Function as Part of Optimization Problem Definition Step</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial_examples/#example-6-fitting-a-neural-network-to-the-iris-dataset">Example 6: Fitting a Neural Network to the Iris Dataset</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial_examples/#example-7-fitting-a-logistic-regression-to-the-iris-data">Example 7: Fitting a Logistic Regression to the Iris Data</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../tutorial_examples/#example-8-fitting-a-logistic-regression-to-the-iris-data-using-the-neuralnetwork-class">Example 8: Fitting a Logistic Regression to the Iris Data using the NeuralNetwork() class</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">3 - Using Neural Network Runners</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#import-libraries">Import Libraries</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#generating-sample-data">Generating sample data...</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#preparing-the-experiment-parameters">Preparing the experiment parameters</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#example-1-running-the-skmlprunner">Example 1: Running the SKMLPRunner</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#a-clean-data">(a) Clean Data</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#b-noisy-data">(b) Noisy Data</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#c-extra-data">(c) Extra Data</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../nn_class_with_sklearn/">4 - How to use NeuralNetwork() with sklearn (EASY)</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../nn_class_with_sklearn/#import-libraries">Import libraries</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../nn_class_with_sklearn/#loading-the-dataset-and-some-pre-processing">Loading the dataset and some pre-processing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../nn_class_with_sklearn/#instantiating-the-neuralnetwork-object">Instantiating the NeuralNetwork Object</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../nn_class_with_sklearn/#validation-curves">Validation Curves</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../nn_class_with_sklearn/#learning-curve">Learning curve</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../nn_class_with_sklearn/#loss-curve">Loss curve</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../nn_class_with_sklearn/#computing-performance-on-the-test-set">Computing performance on the test set.</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">📈 mlrose-ky</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">📝 Examples</li>
+      <li class="breadcrumb-item active">3 - Using Neural Network Runners</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h0 id="mlrose_ky-generator-and-neural-network-runner-usage-examples-andrew-rollings">mlrose_ky Generator and Neural Network Runner Usage Examples - Andrew Rollings<a class="headerlink" href="#mlrose_ky-generator-and-neural-network-runner-usage-examples-andrew-rollings" title="Permanent link">#</a></h0>
+<h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h1>
+<p>These examples will not solve assignment 2 for you, but they will give you<br />
+some idea on how to use the problem generator and runner classes.</p>
+<p>Hopefully this will result in slightly fewer<br />
+"How do I &lt;insert basic usage here&gt;?" questions every semester...</p>
+<p>Also, and in case it hasn't been made clear enough by the TAs, using any of the visualization code in here for your<br />
+assignment is a bad idea, for two reasons... (1) It provides nothing useful as far as the assignment goes,<br />
+and (2) the TAs will undoubtedly frown upon it.</p>
+<p>Visualization is part of the analysis and, for the most part, you're supposed to do that by yourself. Just including<br />
+images of the before/after state of a problem really isn't useful in terms of what you're supposed to be analyzing.</p>
+<p>I also strongly recommend against using the synthetic data class used within for your assignment. It's a toy, with no real<br />
+value for the assignment. There's much better data out there.</p>
+<h2 id="import-libraries">Import Libraries<a class="headerlink" href="#import-libraries" title="Permanent link">#</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>  <span class="c1"># for some notebook formatting.</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span> <span class="nn">mlrose_ky</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">import</span> <span class="nn">logging</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kn">import</span> <span class="nn">string</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="kn">from</span> <span class="nn">mlrose_ky</span> <span class="kn">import</span> <span class="n">SyntheticData</span><span class="p">,</span> <span class="n">plot_synthetic_dataset</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="kn">from</span> <span class="nn">mlrose_ky</span> <span class="kn">import</span> <span class="n">SKMLPRunner</span><span class="p">,</span> <span class="n">SARunner</span><span class="p">,</span> <span class="n">GARunner</span><span class="p">,</span> <span class="n">NNGSRunner</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="c1"># switch off the chatter</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="generating-sample-data">Generating sample data...<a class="headerlink" href="#generating-sample-data" title="Permanent link">#</a></h2>
+<p>This sample data will be used in subsequent examples.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">sd</span> <span class="o">=</span> <span class="n">SyntheticData</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">123456</span><span class="p">)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">clean_data</span><span class="p">,</span> <span class="n">clean_features</span><span class="p">,</span> <span class="n">clean_classes</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">get_synthetic_data</span><span class="p">(</span><span class="n">x_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">y_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Features: </span><span class="si">{</span><span class="n">clean_features</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Classes: </span><span class="si">{</span><span class="n">clean_classes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cx_tr</span><span class="p">,</span> <span class="n">cx_ts</span><span class="p">,</span> <span class="n">cy_tr</span><span class="p">,</span> <span class="n">cy_ts</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">setup_synthetic_data_test_train</span><span class="p">(</span><span class="n">clean_data</span><span class="p">)</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">plot_synthetic_dataset</span><span class="p">(</span><span class="n">x_train</span><span class="o">=</span><span class="n">cx_tr</span><span class="p">,</span> <span class="n">y_train</span><span class="o">=</span><span class="n">cy_tr</span><span class="p">,</span> <span class="n">x_test</span><span class="o">=</span><span class="n">cx_ts</span><span class="p">,</span> <span class="n">y_test</span><span class="o">=</span><span class="n">cy_ts</span><span class="p">,</span> <span class="n">transparent_bg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bg_color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Features: [&#39;(1) A&#39;, &#39;(2) B&#39;]
+Classes: [&#39;RED&#39;, &#39;BLUE&#39;]
+</code></pre></div>
+<p><img alt="png" src="../nn_examples_files/nn_examples_6_1.png" /></p>
+<p>This is our standard 20x20 sample set with no noise or errors, with a 70/30 split between training and test data.</p>
+<p>Each point represents a data sample.<br />
+Black-outlined points represent training data, and white-outlined points represent test data.</p>
+<p>A sample of the clean data can be seen below, with the first two columns being the (x,y) position of the data point, and the third<br />
+column representing the color.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">HTML</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">clean_data</span><span class="p">)[</span><span class="mi">150</span><span class="p">:</span><span class="mi">160</span><span class="p">]</span><span class="o">.</span><span class="n">to_html</span><span class="p">())</span>
+</span></code></pre></div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+      <th>y</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>150</th>
+      <td>7</td>
+      <td>10</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>151</th>
+      <td>7</td>
+      <td>11</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>152</th>
+      <td>7</td>
+      <td>12</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>153</th>
+      <td>7</td>
+      <td>13</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>154</th>
+      <td>7</td>
+      <td>14</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>155</th>
+      <td>7</td>
+      <td>15</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>156</th>
+      <td>7</td>
+      <td>16</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>157</th>
+      <td>7</td>
+      <td>17</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>158</th>
+      <td>7</td>
+      <td>18</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>159</th>
+      <td>7</td>
+      <td>19</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We can generate "dirty" data in two ways: by adding an column of random data,<br />
+or by introducing noisy duplicate data points that either reinforce or contradict<br />
+existing data points.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">noisy_data</span><span class="p">,</span> <span class="n">noisy_features</span><span class="p">,</span> <span class="n">noisy_classes</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">get_synthetic_data</span><span class="p">(</span><span class="n">x_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">y_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">add_noise</span><span class="o">=</span><span class="mf">0.025</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Features: </span><span class="si">{</span><span class="n">noisy_features</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Classes: </span><span class="si">{</span><span class="n">noisy_classes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nx_tr</span><span class="p">,</span> <span class="n">nx_ts</span><span class="p">,</span> <span class="n">ny_tr</span><span class="p">,</span> <span class="n">ny_ts</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">setup_synthetic_data_test_train</span><span class="p">(</span><span class="n">noisy_data</span><span class="p">)</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">plot_synthetic_dataset</span><span class="p">(</span><span class="n">x_train</span><span class="o">=</span><span class="n">nx_tr</span><span class="p">,</span> <span class="n">y_train</span><span class="o">=</span><span class="n">ny_tr</span><span class="p">,</span> <span class="n">x_test</span><span class="o">=</span><span class="n">nx_ts</span><span class="p">,</span> <span class="n">y_test</span><span class="o">=</span><span class="n">ny_ts</span><span class="p">,</span> <span class="n">transparent_bg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bg_color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Features: [&#39;(1) A&#39;, &#39;(2) B&#39;]
+Classes: [&#39;RED&#39;, &#39;BLUE&#39;]
+</code></pre></div>
+<p><img alt="png" src="../nn_examples_files/nn_examples_10_1.png" /></p>
+<p>This is our data with 2.5% added noise.<br />
+A sample of the noisy data can be seen below, with the first two columns being the (x,y) position of the data point, and the third<br />
+column representing the color. Note that the sample shown represent some of the noisy data,<br />
+which is added to the end of the clean data.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">HTML</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">noisy_data</span><span class="p">)[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span><span class="o">.</span><span class="n">to_html</span><span class="p">())</span>
+</span></code></pre></div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+      <th>y</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>410</th>
+      <td>17</td>
+      <td>17</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>411</th>
+      <td>15</td>
+      <td>18</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>412</th>
+      <td>15</td>
+      <td>19</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>413</th>
+      <td>0</td>
+      <td>6</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>414</th>
+      <td>10</td>
+      <td>14</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>415</th>
+      <td>7</td>
+      <td>8</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>416</th>
+      <td>10</td>
+      <td>19</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>417</th>
+      <td>10</td>
+      <td>9</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>418</th>
+      <td>16</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>419</th>
+      <td>6</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If we had chosen to add the random column of data, then the plots<br />
+would look that same as the above two, depending on whether we had<br />
+chosen to additionally add noise or not.</p>
+<p>However, the features are different, as shown below, and we can see the extra<br />
+column in the data sample.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">extra_data</span><span class="p">,</span> <span class="n">extra_features</span><span class="p">,</span> <span class="n">extra_classes</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">get_synthetic_data</span><span class="p">(</span><span class="n">x_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">y_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">add_redundant_column</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Features: </span><span class="si">{</span><span class="n">extra_features</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Classes: </span><span class="si">{</span><span class="n">extra_classes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">ex</span><span class="p">,</span> <span class="n">ey</span><span class="p">,</span> <span class="n">ex_tr</span><span class="p">,</span> <span class="n">ex_ts</span><span class="p">,</span> <span class="n">ey_tr</span><span class="p">,</span> <span class="n">ey_ts</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">setup_synthetic_data_test_train</span><span class="p">(</span><span class="n">extra_data</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Features: [&#39;(1) A&#39;, &#39;(2) B&#39;, &#39;(3) R&#39;]
+Classes: [&#39;RED&#39;, &#39;BLUE&#39;]
+</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">HTML</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">extra_data</span><span class="p">)[</span><span class="mi">150</span><span class="p">:</span><span class="mi">160</span><span class="p">]</span><span class="o">.</span><span class="n">to_html</span><span class="p">())</span>
+</span></code></pre></div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+      <th>y</th>
+      <th>r</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>150</th>
+      <td>7.0</td>
+      <td>10.0</td>
+      <td>0.972641</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>151</th>
+      <td>7.0</td>
+      <td>11.0</td>
+      <td>0.726259</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>152</th>
+      <td>7.0</td>
+      <td>12.0</td>
+      <td>0.412651</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>153</th>
+      <td>7.0</td>
+      <td>13.0</td>
+      <td>0.990003</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>154</th>
+      <td>7.0</td>
+      <td>14.0</td>
+      <td>0.535660</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>155</th>
+      <td>7.0</td>
+      <td>15.0</td>
+      <td>0.559253</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>156</th>
+      <td>7.0</td>
+      <td>16.0</td>
+      <td>0.867020</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>157</th>
+      <td>7.0</td>
+      <td>17.0</td>
+      <td>0.019276</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>158</th>
+      <td>7.0</td>
+      <td>18.0</td>
+      <td>0.123097</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>159</th>
+      <td>7.0</td>
+      <td>19.0</td>
+      <td>0.808300</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="preparing-the-experiment-parameters">Preparing the experiment parameters<a class="headerlink" href="#preparing-the-experiment-parameters" title="Permanent link">#</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># ensure defaults are in grid search</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">default_grid_search_parameters</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="s2">&quot;max_iters&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5000</span><span class="p">],</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="s2">&quot;learning_rate_init&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="s2">&quot;hidden_layer_sizes&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="s2">&quot;activation&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">mlrose_ky</span><span class="o">.</span><span class="n">neural</span><span class="o">.</span><span class="n">activation</span><span class="o">.</span><span class="n">relu</span><span class="p">],</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="p">}</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="n">default_parameters</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="mi">123456</span><span class="p">,</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="s2">&quot;iteration_list&quot;</span><span class="p">:</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">13</span><span class="p">),</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    <span class="s2">&quot;max_attempts&quot;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>    <span class="s2">&quot;override_ctrl_c_handler&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># required for running in notebook</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>    <span class="s2">&quot;n_jobs&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>    <span class="s2">&quot;cv&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="p">}</span>
+</span></code></pre></div>
+<h2 id="example-1-running-the-skmlprunner">Example 1: Running the SKMLPRunner<a class="headerlink" href="#example-1-running-the-skmlprunner" title="Permanent link">#</a></h2>
+<h3 id="a-clean-data">(a) Clean Data<a class="headerlink" href="#a-clean-data" title="Permanent link">#</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">skmlp_grid_search_parameters</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="o">**</span><span class="n">default_grid_search_parameters</span><span class="p">,</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="s2">&quot;max_iters&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5000</span><span class="p">],</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="s2">&quot;learning_rate_init&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0001</span><span class="p">],</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="s2">&quot;activation&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">mlrose_ky</span><span class="o">.</span><span class="n">neural</span><span class="o">.</span><span class="n">activation</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">],</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">}</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="n">skmlp_default_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">default_parameters</span><span class="p">,</span> <span class="s2">&quot;early_stopping&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;tol&quot;</span><span class="p">:</span> <span class="mf">1e-05</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">,</span> <span class="s2">&quot;solver&quot;</span><span class="p">:</span> <span class="s2">&quot;lbfgs&quot;</span><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">cx_skr</span> <span class="o">=</span> <span class="n">SKMLPRunner</span><span class="p">(</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="n">x_train</span><span class="o">=</span><span class="n">cx_tr</span><span class="p">,</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="n">y_train</span><span class="o">=</span><span class="n">cy_tr</span><span class="p">,</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">x_test</span><span class="o">=</span><span class="n">cx_ts</span><span class="p">,</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">y_test</span><span class="o">=</span><span class="n">cx_ts</span><span class="p">,</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="n">experiment_name</span><span class="o">=</span><span class="s2">&quot;skmlp_clean&quot;</span><span class="p">,</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="n">grid_search_parameters</span><span class="o">=</span><span class="n">skmlp_grid_search_parameters</span><span class="p">,</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="o">**</span><span class="n">skmlp_default_parameters</span><span class="p">,</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="p">)</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="n">run_stats_df</span><span class="p">,</span> <span class="n">curves_df</span><span class="p">,</span> <span class="n">cv_results_df</span><span class="p">,</span> <span class="n">cx_sr</span> <span class="o">=</span> <span class="n">cx_skr</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Fitting 5 folds for each of 1 candidates, totalling 5 fits
+
+
+[Parallel(n_jobs=5)]: Using backend LokyBackend with 5 concurrent workers.
+[Parallel(n_jobs=5)]: Done   2 out of   5 | elapsed:    2.0s remaining:    3.0s
+[Parallel(n_jobs=5)]: Done   5 out of   5 | elapsed:  1.2min finished
+</code></pre></div>
+<p>The following plot shows the baseline predictions made for the clean dataset using the SKLearn runner.</p>
+<p>Note that the background coloring shows the prediction made by the learner for that area.<br />
+The intensity of the color is indicative of the prediction confidence level.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Hidden layer size: </span><span class="si">{</span><span class="n">cx_sr</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s2">&quot;hidden_layer_sizes&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">plot_synthetic_dataset</span><span class="p">(</span><span class="n">x_train</span><span class="o">=</span><span class="n">cx_tr</span><span class="p">,</span> <span class="n">y_train</span><span class="o">=</span><span class="n">cy_tr</span><span class="p">,</span> <span class="n">x_test</span><span class="o">=</span><span class="n">cx_ts</span><span class="p">,</span> <span class="n">y_test</span><span class="o">=</span><span class="n">cy_ts</span><span class="p">,</span> <span class="n">classifier</span><span class="o">=</span><span class="n">cx_sr</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">mlp</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Hidden layer size: [4, 4, 4]
+</code></pre></div>
+<p><img alt="png" src="../nn_examples_files/nn_examples_22_1.png" /></p>
+<h3 id="b-noisy-data">(b) Noisy Data<a class="headerlink" href="#b-noisy-data" title="Permanent link">#</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">nx1_skr</span> <span class="o">=</span> <span class="n">SKMLPRunner</span><span class="p">(</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="n">x_train</span><span class="o">=</span><span class="n">nx_tr</span><span class="p">,</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">y_train</span><span class="o">=</span><span class="n">ny_tr</span><span class="p">,</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="n">x_test</span><span class="o">=</span><span class="n">nx_ts</span><span class="p">,</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="n">y_test</span><span class="o">=</span><span class="n">nx_ts</span><span class="p">,</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    <span class="n">experiment_name</span><span class="o">=</span><span class="s2">&quot;skmlp_noisy_1&quot;</span><span class="p">,</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    <span class="n">grid_search_parameters</span><span class="o">=</span><span class="n">skmlp_grid_search_parameters</span><span class="p">,</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    <span class="o">**</span><span class="n">skmlp_default_parameters</span><span class="p">,</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="p">)</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="n">nx1_run_stats_df</span><span class="p">,</span> <span class="n">nx1_curves_df</span><span class="p">,</span> <span class="n">nx1_cv_results_df</span><span class="p">,</span> <span class="n">nx1_sr</span> <span class="o">=</span> <span class="n">nx1_skr</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Fitting 5 folds for each of 1 candidates, totalling 5 fits
+
+
+[Parallel(n_jobs=5)]: Using backend LokyBackend with 5 concurrent workers.
+[Parallel(n_jobs=5)]: Done   2 out of   5 | elapsed:    0.4s remaining:    0.6s
+[Parallel(n_jobs=5)]: Done   5 out of   5 | elapsed:  1.5min finished
+</code></pre></div>
+<p>The following plot shows the predictions made for the noisy dataset using the sklearn runner<br />
+with the same hidden layer size as the best clean set run.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Hidden layer size: </span><span class="si">{</span><span class="n">nx1_sr</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s2">&quot;hidden_layer_sizes&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">plot_synthetic_dataset</span><span class="p">(</span><span class="n">x_train</span><span class="o">=</span><span class="n">nx_tr</span><span class="p">,</span> <span class="n">y_train</span><span class="o">=</span><span class="n">ny_tr</span><span class="p">,</span> <span class="n">x_test</span><span class="o">=</span><span class="n">nx_ts</span><span class="p">,</span> <span class="n">y_test</span><span class="o">=</span><span class="n">ny_ts</span><span class="p">,</span> <span class="n">classifier</span><span class="o">=</span><span class="n">nx1_sr</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">mlp</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Hidden layer size: [4, 4, 4]
+</code></pre></div>
+<p><img alt="png" src="../nn_examples_files/nn_examples_26_1.png" /></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">noisy_data_grid_search_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">skmlp_grid_search_parameters</span><span class="p">,</span> <span class="s2">&quot;hidden_layer_sizes&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]}</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">nx2_skr</span> <span class="o">=</span> <span class="n">SKMLPRunner</span><span class="p">(</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="n">x_train</span><span class="o">=</span><span class="n">nx_tr</span><span class="p">,</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="n">y_train</span><span class="o">=</span><span class="n">ny_tr</span><span class="p">,</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    <span class="n">x_test</span><span class="o">=</span><span class="n">nx_ts</span><span class="p">,</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="n">y_test</span><span class="o">=</span><span class="n">nx_ts</span><span class="p">,</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    <span class="n">experiment_name</span><span class="o">=</span><span class="s2">&quot;skmlp_noisy_2&quot;</span><span class="p">,</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    <span class="n">grid_search_parameters</span><span class="o">=</span><span class="n">noisy_data_grid_search_parameters</span><span class="p">,</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>    <span class="o">**</span><span class="n">skmlp_default_parameters</span><span class="p">,</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="p">)</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="n">nx2_run_stats_df</span><span class="p">,</span> <span class="n">nx2_curves_df</span><span class="p">,</span> <span class="n">nx2_cv_results_df</span><span class="p">,</span> <span class="n">nx2_sr</span> <span class="o">=</span> <span class="n">nx2_skr</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Fitting 5 folds for each of 1 candidates, totalling 5 fits
+
+
+[Parallel(n_jobs=5)]: Using backend LokyBackend with 5 concurrent workers.
+[Parallel(n_jobs=5)]: Done   2 out of   5 | elapsed:  2.0min remaining:  3.0min
+[Parallel(n_jobs=5)]: Done   5 out of   5 | elapsed:  2.1min finished
+</code></pre></div>
+<p>The following plot shows the predictions made for the noisy dataset using the sklearn runner<br />
+with the optimal hidden layer size.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Hidden layer size: </span><span class="si">{</span><span class="n">nx2_sr</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s2">&quot;hidden_layer_sizes&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">plot_synthetic_dataset</span><span class="p">(</span><span class="n">x_train</span><span class="o">=</span><span class="n">nx_tr</span><span class="p">,</span> <span class="n">y_train</span><span class="o">=</span><span class="n">ny_tr</span><span class="p">,</span> <span class="n">x_test</span><span class="o">=</span><span class="n">nx_ts</span><span class="p">,</span> <span class="n">y_test</span><span class="o">=</span><span class="n">ny_ts</span><span class="p">,</span> <span class="n">classifier</span><span class="o">=</span><span class="n">nx2_sr</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">mlp</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Hidden layer size: [4, 4, 4, 4]
+</code></pre></div>
+<p><img alt="png" src="../nn_examples_files/nn_examples_29_1.png" /></p>
+<h3 id="c-extra-data">(c) Extra Data<a class="headerlink" href="#c-extra-data" title="Permanent link">#</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">ex1_skr</span> <span class="o">=</span> <span class="n">SKMLPRunner</span><span class="p">(</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    <span class="n">x_train</span><span class="o">=</span><span class="n">ex_tr</span><span class="p">,</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="n">y_train</span><span class="o">=</span><span class="n">ey_tr</span><span class="p">,</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="n">x_test</span><span class="o">=</span><span class="n">ex_ts</span><span class="p">,</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>    <span class="n">y_test</span><span class="o">=</span><span class="n">ex_ts</span><span class="p">,</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    <span class="n">experiment_name</span><span class="o">=</span><span class="s2">&quot;skmlp_extra_1&quot;</span><span class="p">,</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>    <span class="n">grid_search_parameters</span><span class="o">=</span><span class="n">skmlp_grid_search_parameters</span><span class="p">,</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>    <span class="o">**</span><span class="n">skmlp_default_parameters</span><span class="p">,</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="p">)</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="n">ex1_run_stats_df</span><span class="p">,</span> <span class="n">ex1_curves_df</span><span class="p">,</span> <span class="n">ex1_cv_results_df</span><span class="p">,</span> <span class="n">ex1_sr</span> <span class="o">=</span> <span class="n">ex1_skr</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Fitting 5 folds for each of 1 candidates, totalling 5 fits
+
+
+[Parallel(n_jobs=5)]: Using backend LokyBackend with 5 concurrent workers.
+[Parallel(n_jobs=5)]: Done   2 out of   5 | elapsed:  1.8min remaining:  2.6min
+[Parallel(n_jobs=5)]: Done   5 out of   5 | elapsed:  1.9min finished
+</code></pre></div>
+<p>The following plot shows the baseline predictions made for the extra-column dataset using the sklearn runner<br />
+with the same hidden layer size as the best clean set run:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Hidden layer size: </span><span class="si">{</span><span class="n">ex1_sr</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s2">&quot;hidden_layer_sizes&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">plot_synthetic_dataset</span><span class="p">(</span><span class="n">x_train</span><span class="o">=</span><span class="n">ex_tr</span><span class="p">,</span> <span class="n">y_train</span><span class="o">=</span><span class="n">ey_tr</span><span class="p">,</span> <span class="n">x_test</span><span class="o">=</span><span class="n">ex_ts</span><span class="p">,</span> <span class="n">y_test</span><span class="o">=</span><span class="n">ey_ts</span><span class="p">,</span> <span class="n">classifier</span><span class="o">=</span><span class="n">ex1_sr</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">mlp</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Hidden layer size: [4, 4, 4]
+</code></pre></div>
+<p><img alt="png" src="../nn_examples_files/nn_examples_33_1.png" /></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># override the hidden_layer_sizes grid search.</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">extra_data_grid_search_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">skmlp_grid_search_parameters</span><span class="p">,</span> <span class="s2">&quot;hidden_layer_sizes&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]}</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="n">ex2_skr</span> <span class="o">=</span> <span class="n">SKMLPRunner</span><span class="p">(</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    <span class="n">x_train</span><span class="o">=</span><span class="n">ex_tr</span><span class="p">,</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>    <span class="n">y_train</span><span class="o">=</span><span class="n">ey_tr</span><span class="p">,</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>    <span class="n">x_test</span><span class="o">=</span><span class="n">ex_ts</span><span class="p">,</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>    <span class="n">y_test</span><span class="o">=</span><span class="n">ex_ts</span><span class="p">,</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>    <span class="n">experiment_name</span><span class="o">=</span><span class="s2">&quot;skmlp_extra_2&quot;</span><span class="p">,</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>    <span class="n">grid_search_parameters</span><span class="o">=</span><span class="n">extra_data_grid_search_parameters</span><span class="p">,</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>    <span class="o">**</span><span class="n">skmlp_default_parameters</span><span class="p">,</span>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="p">)</span>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="n">ex2_run_stats_df</span><span class="p">,</span> <span class="n">ex2_curves_df</span><span class="p">,</span> <span class="n">ex2_cv_results_df</span><span class="p">,</span> <span class="n">ex2_sr</span> <span class="o">=</span> <span class="n">ex2_skr</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Fitting 5 folds for each of 1 candidates, totalling 5 fits
+
+
+[Parallel(n_jobs=5)]: Using backend LokyBackend with 5 concurrent workers.
+[Parallel(n_jobs=5)]: Done   2 out of   5 | elapsed:  1.3min remaining:  1.9min
+[Parallel(n_jobs=5)]: Done   5 out of   5 | elapsed:  2.0min finished
+</code></pre></div>
+<p>The following plot shows the baseline predictions made for the extra-column dataset using the sklearn runner<br />
+with the optimal hidden layer size:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Hidden layer size: </span><span class="si">{</span><span class="n">ex2_sr</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s2">&quot;hidden_layer_sizes&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">plot_synthetic_dataset</span><span class="p">(</span><span class="n">x_train</span><span class="o">=</span><span class="n">ex_tr</span><span class="p">,</span> <span class="n">y_train</span><span class="o">=</span><span class="n">ey_tr</span><span class="p">,</span> <span class="n">x_test</span><span class="o">=</span><span class="n">ex_ts</span><span class="p">,</span> <span class="n">y_test</span><span class="o">=</span><span class="n">ey_ts</span><span class="p">,</span> <span class="n">classifier</span><span class="o">=</span><span class="n">ex2_sr</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">mlp</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Hidden layer size: [6, 6, 6]
+</code></pre></div>
+<p><img alt="png" src="../nn_examples_files/nn_examples_36_1.png" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../tutorial_examples/" class="btn btn-neutral float-left" title="2 - Fitness function in code"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../nn_class_with_sklearn/" class="btn btn-neutral float-right" title="4 - How to use NeuralNetwork() with sklearn (EASY)">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../tutorial_examples/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../nn_class_with_sklearn/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../javascripts/mathjax.js"></script>
+      <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
