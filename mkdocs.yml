@@ -11,7 +11,7 @@ nav:
     - 🏃🏻 Fitness Functions: fitness.md
 
   - 🧠 Neural Networks:
-    - 📉 Backpropagation using ROs: neural.md 
+    - 📉 Weight estimation using GD/ROs: neural.md 
 
   - 🧑🏻‍💻 Tutorials:
       - 1 - Getting Started: tutorial1.md
