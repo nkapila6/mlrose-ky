@@ -1,10 +1,5 @@
 # mlrose-ky: Machine Learning, Randomized Optimization, and SEarch
-
-[![PyPI version](https://badge.fury.io/py/mlrose-ky.svg)](https://pypi.org/project/mlrose-ky/)
-[![Coverage badge](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=coverage&query=%24.message&url=https%3A%2F%2Fraw.githubusercontent.com%2Fnkapila6%2Fmlrose-ky%2Fpython-coverage-comment-action-data%2Fendpoint.json)](https://htmlpreview.github.io/?https://github.com/nkapila6/mlrose-ky/blob/python-coverage-comment-action-data/htmlcov/index.html)
-
-`mlrose-ky` is a Python package for applying some of the most common randomized optimization and search algorithms to a range of different
-optimization problems, over both discrete- and continuous-valued parameter spaces.
+Documentation for [mlrose-ky](https://github.com/knakamura13/mlrose-ky)
 
 ## Project Background
 
@@ -27,14 +22,12 @@ Today, `mlrose-ky` introduces additional improvements and bug fixes on top of `m
 - Optimized algorithm implementations, including a bug fix for Random Hill Climb (TODO: *rhc.py:126*)
 
 ## Main Features
-
 This repository includes implementations of all randomized optimization algorithms taught in the course, as well as functionality to apply
 these algorithms to integer-string optimization problems, such as N-Queens and the Knapsack problem; continuous-valued optimization
 problems, such as the neural network weight problem; and tour optimization problems, such as the Travelling Salesperson problem. It also has
 the flexibility to solve user-defined optimization problems.
 
 #### *Randomized Optimization Algorithms*
-
 - Implementations of: hill climbing, randomized hill climbing, simulated annealing, genetic algorithm, and (discrete) MIMIC;
 - Solve both maximization and minimization problems;
 - Define the algorithm's initial state or start from a random state;
@@ -42,43 +35,33 @@ the flexibility to solve user-defined optimization problems.
   arithmetic decay, or exponential decay.
 
 #### *Problem Types*
-
 - Solve discrete-value (bit-string and integer-string), continuous-value, and tour optimization (travelling salesperson) problems;
 - Define your own fitness function for optimization or use a pre-defined function.
 - Pre-defined fitness functions exist for solving the: One Max, Flip Flop, Four Peaks, Six Peaks, Continuous Peaks, Knapsack, Travelling
   Salesperson, N-Queens, and Max-K Color optimization problems.
 
 #### *Machine Learning Weight Optimization*
-
 - Optimize the weights of neural networks, linear regression models, and logistic regression models using randomized hill climbing,
   simulated annealing, the genetic algorithm, or gradient descent;
 - Supports classification and regression neural networks.
 
 ## Project Improvements and Updates
-
 The `mlrose-ky` project is undergoing significant improvements to enhance code quality, documentation, and testing. Below is a list of tasks
 that have been completed or are in progress:
 
 1. **Fix Python Warnings and Errors**: All Python warnings and errors have been addressed, except for a few unavoidable ones like "duplicate
    code." ✅
-
 2. **Add Python 3.10 Type Hints**: Type hints are being added to all function and method definitions, as well as method properties (
    e.g., `self.foo: str = 'bar'`), to improve code clarity and maintainability. ✅
-
 3. **Enhance Documentation**: NumPy-style docstrings are being added to all functions and methods, with at least a one-line docstring at the
    top of every file summarizing its contents. This will make the codebase more understandable and easier to use for others. ✅
-
 4. **Increase Test Coverage**: Tests are being added using Pytest, with a goal of achieving 100% code coverage to ensure the robustness of
    the codebase.
-
 5. **Resolve TODO/FIXME Comments**: A thorough search is being conducted for any TODO, FIXME, or similar comments, and their respective
    issues are being resolved.
-
 6. **Optimize Code**: Vanilla Python loops are being optimized where possible by vectorizing them with NumPy to enhance performance.
-
 7. **Improve Code Quality**: Any other sub-optimal code, bugs, or code quality issues are being addressed to ensure a high standard of
    coding practices.
-
 8. **Clean Up Codebase**: All commented-out code is being removed to keep the codebase clean and maintainable. ✅
 
 ## Installation
