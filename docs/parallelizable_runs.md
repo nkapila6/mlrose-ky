@@ -5,7 +5,7 @@ Faster experimentation using the new parallel script.
 !!! warning 
     21.02.2025: I do not have access to the PyPI project so the code can be copied from GitHub and copied into your local environment, i.e. this will not work if you install it through `pip`.
 
-    The source can be viewed [here](https://github.com/knakamura13/mlrose-ky/blob/main/examples/parallelizable_runs.ipynb).
+    The source can be viewed [here](https://github.com/knakamura13/mlrose-ky/blob/main/src/mlrose_ky/utils/parallel.py).
 
 ```python
 import mlrose_ky as mlrose
