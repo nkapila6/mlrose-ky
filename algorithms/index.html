@@ -444,6 +444,10 @@
     </li>
     </ul>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../parallelizable_runs/">5 - Run mlrose FASTER - parallelizable code</a>
+    <ul>
+    </ul>
+                  </li>
               </ul>
       </div>
     </div>
@@ -477,15 +481,14 @@
 </div>
 <h2 id="hill-climbing">Hill Climbing<a class="headerlink" href="#hill-climbing" title="Permanent link">#</a></h2>
 <p>Use standard hill climbing to find the optimum for a given optimization problem.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">hill_climb</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">problem</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">max_iters</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">),</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">restarts</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">init_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">curve</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">)</span> 
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">hill_climb(
+    problem,
+    max_iters=float('inf'),
+    restarts=0,
+    init_state=None,
+    curve=False,
+    random_state=None
+) </code></pre>
 <p><strong>Parameters</strong> <a href="https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/hc.py#L12">[source]</a></p>
 <ul>
 <li><strong>problem</strong> (<em>optimization object</em>) – Object containing fitness function optimization problem to be solved. For example, <code>DiscreteOpt()</code>, <code>ContinuousOpt()</code> or <code>TSPOpt()</code>.</li>
@@ -505,16 +508,15 @@
 <p>Russell, S. and P. Norvig (2010). <em>Artificial Intelligence: A Modern Approach</em>, 3rd edition. Prentice Hall, New Jersey, USA.</p>
 <h2 id="random-hill-climbing">Random Hill Climbing<a class="headerlink" href="#random-hill-climbing" title="Permanent link">#</a></h2>
 <p>Use randomized hill climbing to find the optimum for a given optimization problem.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">random_hill_climb</span><span class="p">(</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">problem</span><span class="p">,</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">max_attempts</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">max_iters</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">),</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">restarts</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">init_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">curve</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">)</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">random_hill_climb(
+    problem,
+    max_attempts=10,
+    max_iters=float('inf'),
+    restarts=0,
+    init_state=None,
+    curve=False,
+    random_state=None
+)</code></pre>
 <p><strong>Parameters</strong> <a href="https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/rhc.py#L12">[source]</a></p>
 <ul>
 <li><strong>problem</strong> (<em>optimization object</em>) – Object containing fitness function optimization problem to be solved. For example, <code>DiscreteOpt()</code>, <code>ContinuousOpt()</code> or <code>TSPOpt()</code>.</li>
@@ -535,16 +537,15 @@
 <p>Brownlee, J (2011). <em>Clever Algorithms: Nature-Inspired Programming Recipes</em>. <a href="http://www.cleveralgorithms.com/">http://www.cleveralgorithms.com</a>.</p>
 <h2 id="simulated-annealing">Simulated Annealing<a class="headerlink" href="#simulated-annealing" title="Permanent link">#</a></h2>
 <p>Use simulated annealing to find the optimum for a given optimization problem.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">simulated_annealing</span><span class="p">(</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">problem</span><span class="p">,</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">schedule</span><span class="o">=&lt;</span><span class="n">mlrose_ky</span><span class="o">.</span><span class="n">decay</span><span class="o">.</span><span class="n">GeomDecay</span> <span class="nb">object</span><span class="o">&gt;</span><span class="p">,</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">max_attempts</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">max_iters</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">),</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">init_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">curve</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">)</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">simulated_annealing(
+    problem,
+    schedule=&lt;mlrose_ky.decay.GeomDecay object&gt;,
+    max_attempts=10,
+    max_iters=float('inf'),
+    init_state=None,
+    curve=False,
+    random_state=None
+)</code></pre>
 <p><strong>Parameters</strong> <a href="https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/sa.py#L13">[source]</a></p>
 <ul>
 <li><strong>problem</strong> (<em>optimization object</em>) – Object containing fitness function optimization problem to be solved. For example, <code>DiscreteOpt()</code>, <code>ContinuousOpt()</code> or <code>TSPOpt()</code>.</li>
@@ -565,16 +566,15 @@
 <p>Russell, S. and P. Norvig (2010). <em>Artificial Intelligence: A Modern Approach</em>, 3rd edition. Prentice Hall, New Jersey, USA.</p>
 <h2 id="genetic-algorithms">Genetic Algorithms<a class="headerlink" href="#genetic-algorithms" title="Permanent link">#</a></h2>
 <p>Use a standard genetic algorithm to find the optimum for a given optimization problem.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">genetic_alg</span><span class="p">(</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">problem</span><span class="p">,</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">pop_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">mutation_prob</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">max_attempts</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">max_iters</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">),</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">curve</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">)</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">genetic_alg(
+    problem,
+    pop_size=200,
+    mutation_prob=0.1,
+    max_attempts=10,
+    max_iters=float('inf'),
+    curve=False,
+    random_state=None
+)</code></pre>
 <p><strong>Parameters</strong> <a href="https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/ga.py#L101">[source]</a></p>
 <ul>
 <li><strong>problem</strong> (<em>optimization object</em>) – Object containing fitness function optimization problem to be solved. For example, <code>DiscreteOpt()</code>, <code>ContinuousOpt()</code> or <code>TSPOpt()</code>.</li>
@@ -595,17 +595,16 @@
 <p>Russell, S. and P. Norvig (2010). <em>Artificial Intelligence: A Modern Approach</em>, 3rd edition. Prentice Hall, New Jersey, USA.</p>
 <h2 id="mimic">MIMIC<a class="headerlink" href="#mimic" title="Permanent link">#</a></h2>
 <p>Use MIMIC to find the optimum for a given optimization problem.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">mimic</span><span class="p">(</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">problem</span><span class="p">,</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">pop_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">keep_pct</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">max_attempts</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">max_iters</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">),</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">curve</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">fast_mimic</span><span class="o">=</span><span class="kc">False</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">)</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">mimic(
+    problem,
+    pop_size=200,
+    keep_pct=0.2,
+    max_attempts=10,
+    max_iters=float('inf'),
+    curve=False,
+    random_state=None,
+    fast_mimic=False
+)</code></pre>
 <div class="admonition danger">
 <p class="admonition-title">Warning</p>
 <p>MIMIC cannot be used for solving continuous-state optimization problems.</p>

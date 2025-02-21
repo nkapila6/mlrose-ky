@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>3 - Using Neural Network Runners - 📈 mlrose-ky</title>
+    <title>5 - Run mlrose FASTER - parallelizable code - 📈 mlrose-ky</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "3 - Using Neural Network Runners";
-        var mkdocs_page_input_path = "nn_examples.md";
+        var mkdocs_page_name = "5 - Run mlrose FASTER - parallelizable code";
+        var mkdocs_page_input_path = "parallelizable_runs.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -406,21 +406,21 @@
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">3 - Using Neural Network Runners</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#import-libraries">Import Libraries</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../nn_examples/">3 - Using Neural Network Runners</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../nn_examples/#import-libraries">Import Libraries</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#generating-sample-data">Generating sample data...</a>
+    <li class="toctree-l2"><a class="reference internal" href="../nn_examples/#generating-sample-data">Generating sample data...</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#preparing-the-experiment-parameters">Preparing the experiment parameters</a>
+    <li class="toctree-l2"><a class="reference internal" href="../nn_examples/#preparing-the-experiment-parameters">Preparing the experiment parameters</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#example-1-running-the-skmlprunner">Example 1: Running the SKMLPRunner</a>
+    <li class="toctree-l2"><a class="reference internal" href="../nn_examples/#example-1-running-the-skmlprunner">Example 1: Running the SKMLPRunner</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#a-clean-data">(a) Clean Data</a>
+    <li class="toctree-l3"><a class="reference internal" href="../nn_examples/#a-clean-data">(a) Clean Data</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#b-noisy-data">(b) Noisy Data</a>
+    <li class="toctree-l3"><a class="reference internal" href="../nn_examples/#b-noisy-data">(b) Noisy Data</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#c-extra-data">(c) Extra Data</a>
+    <li class="toctree-l3"><a class="reference internal" href="../nn_examples/#c-extra-data">(c) Extra Data</a>
     </li>
         </ul>
     </li>
@@ -444,8 +444,8 @@
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../parallelizable_runs/">5 - Run mlrose FASTER - parallelizable code</a>
-    <ul>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">5 - Run mlrose FASTER - parallelizable code</a>
+    <ul class="current">
     </ul>
                   </li>
               </ul>
@@ -464,7 +464,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">📝 Examples</li>
-      <li class="breadcrumb-item active">3 - Using Neural Network Runners</li>
+      <li class="breadcrumb-item active">5 - Run mlrose FASTER - parallelizable code</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -473,474 +473,622 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h0 id="mlrose_ky-generator-and-neural-network-runner-usage-examples-andrew-rollings">mlrose_ky Generator and Neural Network Runner Usage Examples - Andrew Rollings<a class="headerlink" href="#mlrose_ky-generator-and-neural-network-runner-usage-examples-andrew-rollings" title="Permanent link">#</a></h0>
-<h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h1>
-<p>These examples will not solve assignment 2 for you, but they will give you<br />
-some idea on how to use the problem generator and runner classes.</p>
-<p>Hopefully this will result in slightly fewer<br />
-"How do I &lt;insert basic usage here&gt;?" questions every semester...</p>
-<p>Also, and in case it hasn't been made clear enough by the TAs, using any of the visualization code in here for your<br />
-assignment is a bad idea, for two reasons... (1) It provides nothing useful as far as the assignment goes,<br />
-and (2) the TAs will undoubtedly frown upon it.</p>
-<p>Visualization is part of the analysis and, for the most part, you're supposed to do that by yourself. Just including<br />
-images of the before/after state of a problem really isn't useful in terms of what you're supposed to be analyzing.</p>
-<p>I also strongly recommend against using the synthetic data class used within for your assignment. It's a toy, with no real<br />
-value for the assignment. There's much better data out there.</p>
-<h2 id="import-libraries">Import Libraries<a class="headerlink" href="#import-libraries" title="Permanent link">#</a></h2>
-<pre class="highlight"><code class="language-python">from IPython.core.display import display, HTML  # for some notebook formatting.
-
-import mlrose_ky
+                <h1 id="parallelize-mlrose-randomized-optimizations">Parallelize mlrose randomized optimizations<a class="headerlink" href="#parallelize-mlrose-randomized-optimizations" title="Permanent link">#</a></h1>
+<p>Faster experimentation using the new parallel script.<br />
+<em>Tutorial by Nikhil Kapila - 21.02.2025</em></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>21.02.2025: I do not have access to the PyPI project so the code can be copied from GitHub and copied into your local environment, i.e. this will not work if you install it through <code>pip</code>.</p>
+<p>The source can be viewed <a href="https://github.com/knakamura13/mlrose-ky/blob/main/examples/parallelizable_runs.ipynb">here</a>.</p>
+</div>
+<pre class="highlight"><code class="language-python">import mlrose_ky as mlrose
+from mlrose_ky.utils import parallel
 import numpy as np
-import pandas as pd
-import logging
-import networkx as nx
-import matplotlib.pyplot as plt
-import string
+import time
+from pprint import pprint</code></pre>
+<h1 id="creating-the-parameter-grid">Creating the parameter grid<a class="headerlink" href="#creating-the-parameter-grid" title="Permanent link">#</a></h1>
+<p>In this section, we initialize all the different parameters required by our algorithms. <br />
+We use an example of Four Peaks for this notebook to explain the parallelized <em>FASTER</em> runs.</p>
+<pre class="highlight"><code class="language-python"># We use 3 seeds
+seeds = [1, 2, 3]
+
+# for Four Peaks problem
+t_pct = 0.05
+
+# for all algorithms
+max_attempt = [10, 25, 50]
+max_iter = [5000]
+
+# RHC 
+restart = [1, 2, 5, 10, 15, 25, 50, 100]
+
+# pop_size for GA and MIMIC
+# mutation_prob for GA
+# keep_pct for MIMIC
+pop_size = [50, 100, 200, 400, 800]
+mutation_prob = [0.05, 0.1, 0.2, 0.3, 0.4]
+keep_pct = [0.1, 0.2, 0.3, 0.4]
+
+# decays for SA, you can pick the other types too --&gt; refer docs
+decays = []
+for t in [1, 2, 5]:
+    for decay in [0.0001, 0.00025, 0.0005]:
+        decays.append(mlrose.ArithDecay(init_temp=t, decay=decay, min_temp=0.001))</code></pre>
+<h1 id="rhc">RHC<a class="headerlink" href="#rhc" title="Permanent link">#</a></h1>
+<p>We use a single sized RHC, pass in all our previous parameters, and generate the output results.<br />
+<code>view_params</code> displays how your input parameters are expanded into all possible combinations of their values, generating a full set of parameter permutations.</p>
+<h2 id="with-view_params-as-false">With <code>view_params</code> as <code>False</code><a class="headerlink" href="#with-view_params-as-false" title="Permanent link">#</a></h2>
+<pre class="highlight"><code class="language-python">for size in [20]: #, 60, 100]:
+    print("fourpeaks of size:", size)
+    problem = mlrose.DiscreteOpt(
+        length=size, fitness_fn=mlrose.FourPeaks(t_pct=t_pct), maximize=True
+    )
+    problem.set_mimic_fast_mode(fast_mode=True)
+
+    # Hyperparameter tunning section
+    print("rhc")
+    rhc_grid = {
+        "problem": [problem],
+        "max_attempt": max_attempt,
+        "max_iter": max_iter,
+        "restart": restart,
+        "seeds": [seeds],
+    }
+
+    rhc_results = parallel.get_results(rhc_grid, parallel.rhc_run, verbose=True, view_params=False)</code></pre>
+<pre class="highlight"><code>fourpeaks of size: 20
+rhc
+Number of params: 24
 
 
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
-from sklearn.metrics import accuracy_score
-from mlrose_ky import SyntheticData, plot_synthetic_dataset
-from mlrose_ky import SKMLPRunner, SARunner, GARunner, NNGSRunner
+[Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
+[Parallel(n_jobs=-1)]: Done  24 out of  24 | elapsed:    3.8s finished</code></pre>
+<h2 id="with-view_params-as-true">With <code>view_params</code> as <code>True</code><a class="headerlink" href="#with-view_params-as-true" title="Permanent link">#</a></h2>
+<p>You can see how the different combinations come out.</p>
+<pre class="highlight"><code class="language-python">for size in [20]: #, 60, 100]:
+    print("fourpeaks of size:", size)
+    problem = mlrose.DiscreteOpt(
+        length=size, fitness_fn=mlrose.FourPeaks(t_pct=t_pct), maximize=True
+    )
+    problem.set_mimic_fast_mode(fast_mode=True)
 
-# switch off the chatter
-logging.basicConfig(level=logging.WARNING)</code></pre>
-<h2 id="generating-sample-data">Generating sample data...<a class="headerlink" href="#generating-sample-data" title="Permanent link">#</a></h2>
-<p>This sample data will be used in subsequent examples.</p>
-<pre class="highlight"><code class="language-python">sd = SyntheticData(seed=123456)
+    # Hyperparameter tunning section
+    print("rhc")
+    rhc_grid = {
+        "problem": [problem],
+        "max_attempt": max_attempt,
+        "max_iter": max_iter,
+        "restart": restart,
+        "seeds": [seeds],
+    }
 
-clean_data, clean_features, clean_classes, _ = sd.get_synthetic_data(x_dim=20, y_dim=20)
+    rhc_results = parallel.get_results(rhc_grid, parallel.rhc_run, verbose=True, view_params=True)</code></pre>
+<pre class="highlight"><code>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
 
-print(f"Features: {clean_features}")
-print(f"Classes: {clean_classes}")
 
-cx, cy, cx_tr, cx_ts, cy_tr, cy_ts = sd.setup_synthetic_data_test_train(clean_data)
-plot_synthetic_dataset(x_train=cx_tr, y_train=cy_tr, x_test=cx_ts, y_test=cy_ts, transparent_bg=False, bg_color="black")</code></pre>
-<pre class="highlight"><code>Features: ['(1) A', '(2) B']
-Classes: ['RED', 'BLUE']</code></pre>
-<p><img alt="png" src="../nn_examples_files/nn_examples_6_1.png" /></p>
-<p>This is our standard 20x20 sample set with no noise or errors, with a 70/30 split between training and test data.</p>
-<p>Each point represents a data sample.<br />
-Black-outlined points represent training data, and white-outlined points represent test data.</p>
-<p>A sample of the clean data can be seen below, with the first two columns being the (x,y) position of the data point, and the third<br />
-column representing the color.</p>
-<pre class="highlight"><code class="language-python">HTML(pd.DataFrame(columns=["x", "y", "c"], data=clean_data)[150:160].to_html())</code></pre>
+fourpeaks of size: 20
+rhc
+[{'max_attempt': 10,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 1,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 10,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 2,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 10,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 5,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 10,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 10,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 10,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 15,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 10,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 25,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 10,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 50,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 10,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 100,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 25,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 1,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 25,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 2,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 25,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 5,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 25,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 10,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 25,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 15,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 25,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 25,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 25,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 50,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 25,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 100,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 50,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 1,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 50,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 2,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 50,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 5,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 50,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 10,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 50,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 15,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 50,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 25,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 50,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 50,
+  'seeds': [1, 2, 3]},
+ {'max_attempt': 50,
+  'max_iter': 5000,
+  'problem': &lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt object at 0x11cf53a70&gt;,
+  'restart': 100,
+  'seeds': [1, 2, 3]}]
+Number of params: 24
+
+
+[Parallel(n_jobs=-1)]: Done  24 out of  24 | elapsed:    0.9s finished</code></pre>
+<h1 id="understanding-the-output">Understanding the output<a class="headerlink" href="#understanding-the-output" title="Permanent link">#</a></h1>
+<p>The output is a list of DataFrames, we had 24 different combinations and hence, there are 24 different output dataframes wherein each row in each output refers to a specific seed.</p>
+<pre class="highlight"><code class="language-python">len(rhc_results)</code></pre>
+<pre class="highlight"><code>24</code></pre>
+<p>Looking at the first dataframe, we can see our hyperparams of <code>Restart</code>=1 and the time taken per seed.</p>
+<pre class="highlight"><code class="language-python">rhc_results[0]</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>x</th>
-      <th>y</th>
-      <th>c</th>
+      <th>Seed</th>
+      <th>Best State</th>
+      <th>Best Fitness</th>
+      <th>Fitness Value</th>
+      <th>Fevals</th>
+      <th>Max Attempt</th>
+      <th>Max Iters</th>
+      <th>Restart</th>
+      <th>Problem</th>
+      <th>Time</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>150</th>
-      <td>7</td>
+      <th>0</th>
+      <td>1</td>
+      <td>[1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, ...</td>
+      <td>29.0</td>
+      <td>[4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 5.0, 8.0, ...</td>
+      <td>[18.0, 19.0, 20.0, 21.0, 22.0, 23.0, 24.0, 26....</td>
       <td>10</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>151</th>
-      <td>7</td>
-      <td>11</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>152</th>
-      <td>7</td>
-      <td>12</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>153</th>
-      <td>7</td>
-      <td>13</td>
+      <td>5000</td>
       <td>1</td>
+      <td>&lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt ...</td>
+      <td>0.002735</td>
     </tr>
     <tr>
-      <th>154</th>
-      <td>7</td>
-      <td>14</td>
+      <th>1</th>
+      <td>2</td>
+      <td>[0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, ...</td>
+      <td>6.0</td>
+      <td>[6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, ...</td>
+      <td>[25.0, 26.0, 27.0, 28.0, 29.0, 30.0, 31.0, 32....</td>
+      <td>10</td>
+      <td>5000</td>
       <td>1</td>
+      <td>&lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt ...</td>
+      <td>0.002735</td>
     </tr>
     <tr>
-      <th>155</th>
-      <td>7</td>
-      <td>15</td>
+      <th>2</th>
+      <td>3</td>
+      <td>[1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, ...</td>
+      <td>3.0</td>
+      <td>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+      <td>[1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, ...</td>
+      <td>10</td>
+      <td>5000</td>
       <td>1</td>
-    </tr>
-    <tr>
-      <th>156</th>
-      <td>7</td>
-      <td>16</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>157</th>
-      <td>7</td>
-      <td>17</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>158</th>
-      <td>7</td>
-      <td>18</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>159</th>
-      <td>7</td>
-      <td>19</td>
-      <td>1</td>
+      <td>&lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt ...</td>
+      <td>0.002735</td>
     </tr>
   </tbody>
 </table>
+</div>
 
-<p>We can generate "dirty" data in two ways: by adding an column of random data,<br />
-or by introducing noisy duplicate data points that either reinforce or contradict<br />
-existing data points.</p>
-<pre class="highlight"><code class="language-python">noisy_data, noisy_features, noisy_classes, _ = sd.get_synthetic_data(x_dim=20, y_dim=20, add_noise=0.025)
-print(f"Features: {noisy_features}")
-print(f"Classes: {noisy_classes}")
+<p>To access fitness value of <code>Restart</code>=1 for <code>Seed</code>=1, we can do the following.</p>
+<pre class="highlight"><code class="language-python">rhc_results[1].loc[0, 'Fitness Value']
+# or rhc_results[1]['Fitness Value'][0]
+# view more ways here: https://pandas.pydata.org/docs/reference/api/pandas.Series.html</code></pre>
+<pre class="highlight"><code>[4.0,
+ 4.0,
+ 4.0,
+ 4.0,
+ 4.0,
+ 4.0,
+ 4.0,
+ 5.0,
+ 8.0,
+ 28.0,
+ 28.0,
+ 29.0,
+ 29.0,
+ 29.0,
+ 29.0,
+ 29.0,
+ 29.0,
+ 29.0,
+ 29.0,
+ 29.0,
+ 29.0,
+ 29.0]</code></pre>
+<h1 id="similarly-for-sa">Similarly, for SA<a class="headerlink" href="#similarly-for-sa" title="Permanent link">#</a></h1>
+<pre class="highlight"><code class="language-python">sa_grid = {
+    "problem": [problem],
+    "max_attempt": max_attempt,
+    "max_iter": max_iter,
+    "decay": decays,
+    "seeds": [seeds],
+}
+sa_results = parallel.get_results(sa_grid, parallel.sa_run, verbose=True, view_params=False)</code></pre>
+<pre class="highlight"><code>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
 
-nx, ny, nx_tr, nx_ts, ny_tr, ny_ts = sd.setup_synthetic_data_test_train(noisy_data)
-plot_synthetic_dataset(x_train=nx_tr, y_train=ny_tr, x_test=nx_ts, y_test=ny_ts, transparent_bg=False, bg_color="black")</code></pre>
-<pre class="highlight"><code>Features: ['(1) A', '(2) B']
-Classes: ['RED', 'BLUE']</code></pre>
-<p><img alt="png" src="../nn_examples_files/nn_examples_10_1.png" /></p>
-<p>This is our data with 2.5% added noise.<br />
-A sample of the noisy data can be seen below, with the first two columns being the (x,y) position of the data point, and the third<br />
-column representing the color. Note that the sample shown represent some of the noisy data,<br />
-which is added to the end of the clean data.</p>
-<pre class="highlight"><code class="language-python">HTML(pd.DataFrame(columns=["x", "y", "c"], data=noisy_data)[-10:].to_html())</code></pre>
+
+Number of params: 27
+
+
+[Parallel(n_jobs=-1)]: Done  27 out of  27 | elapsed:    1.2s finished</code></pre>
+<pre class="highlight"><code class="language-python">sa_results[0]</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>x</th>
-      <th>y</th>
-      <th>c</th>
+      <th>Seed</th>
+      <th>Best State</th>
+      <th>Best Fitness</th>
+      <th>Fitness Value</th>
+      <th>Fevals</th>
+      <th>Max Attempt</th>
+      <th>Max Iters</th>
+      <th>Decay</th>
+      <th>Problem</th>
+      <th>Time</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>410</th>
-      <td>17</td>
-      <td>17</td>
+      <th>0</th>
       <td>1</td>
-    </tr>
-    <tr>
-      <th>411</th>
-      <td>15</td>
-      <td>18</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>412</th>
-      <td>15</td>
-      <td>19</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>413</th>
-      <td>0</td>
-      <td>6</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>414</th>
+      <td>[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, ...</td>
+      <td>31.0</td>
+      <td>[22.0, 22.0, 22.0, 22.0, 22.0, 22.0, 22.0, 26....</td>
+      <td>[2.0, 4.0, 6.0, 8.0, 9.0, 11.0, 12.0, 14.0, 16...</td>
       <td>10</td>
-      <td>14</td>
-      <td>1</td>
+      <td>5000</td>
+      <td>ArithDecay(init_temp=1, decay=0.0001, min_temp...</td>
+      <td>&lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt ...</td>
+      <td>0.132708</td>
     </tr>
     <tr>
-      <th>415</th>
-      <td>7</td>
-      <td>8</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>416</th>
+      <th>1</th>
+      <td>2</td>
+      <td>[1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...</td>
+      <td>34.0</td>
+      <td>[2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0.0, 0.0, 0.0, ...</td>
+      <td>[2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 1...</td>
       <td>10</td>
-      <td>19</td>
-      <td>1</td>
+      <td>5000</td>
+      <td>ArithDecay(init_temp=1, decay=0.0001, min_temp...</td>
+      <td>&lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt ...</td>
+      <td>0.132708</td>
     </tr>
     <tr>
-      <th>417</th>
+      <th>2</th>
+      <td>3</td>
+      <td>[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...</td>
+      <td>36.0</td>
+      <td>[3.0, 3.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, ...</td>
+      <td>[2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 1...</td>
       <td>10</td>
-      <td>9</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>418</th>
-      <td>16</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>419</th>
-      <td>6</td>
-      <td>0</td>
-      <td>1</td>
+      <td>5000</td>
+      <td>ArithDecay(init_temp=1, decay=0.0001, min_temp...</td>
+      <td>&lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt ...</td>
+      <td>0.132708</td>
     </tr>
   </tbody>
 </table>
+</div>
 
-<p>If we had chosen to add the random column of data, then the plots<br />
-would look that same as the above two, depending on whether we had<br />
-chosen to additionally add noise or not.</p>
-<p>However, the features are different, as shown below, and we can see the extra<br />
-column in the data sample.</p>
-<pre class="highlight"><code class="language-python">extra_data, extra_features, extra_classes, _ = sd.get_synthetic_data(x_dim=20, y_dim=20, add_redundant_column=True)
-print(f"Features: {extra_features}")
-print(f"Classes: {extra_classes}")
+<h1 id="ga">GA<a class="headerlink" href="#ga" title="Permanent link">#</a></h1>
+<pre class="highlight"><code class="language-python">ga_grid = {
+    "problem": [problem],
+    "pop_size": pop_size,
+    "mutation_prob": mutation_prob,
+    "max_attempt": max_attempt,
+    "max_iter": max_iter,
+    "seeds": [seeds],
+}
+ga_results = parallel.get_results(ga_grid, parallel.ga_run, verbose=True)</code></pre>
+<pre class="highlight"><code>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
 
-ex, ey, ex_tr, ex_ts, ey_tr, ey_ts = sd.setup_synthetic_data_test_train(extra_data)</code></pre>
-<pre class="highlight"><code>Features: ['(1) A', '(2) B', '(3) R']
-Classes: ['RED', 'BLUE']</code></pre>
-<pre class="highlight"><code class="language-python">HTML(pd.DataFrame(columns=["x", "y", "r", "c"], data=extra_data)[150:160].to_html())</code></pre>
+
+Number of params: 75
+
+
+[Parallel(n_jobs=-1)]: Done  52 tasks      | elapsed:    9.1s
+[Parallel(n_jobs=-1)]: Done  60 out of  75 | elapsed:   11.0s remaining:    2.8s
+[Parallel(n_jobs=-1)]: Done  75 out of  75 | elapsed:   20.6s finished</code></pre>
+<pre class="highlight"><code class="language-python">ga_results[0]</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>x</th>
-      <th>y</th>
-      <th>r</th>
-      <th>c</th>
+      <th>Seed</th>
+      <th>Best State</th>
+      <th>Best Fitness</th>
+      <th>Fitness Value</th>
+      <th>Fevals</th>
+      <th>Max Attempt</th>
+      <th>Max Iters</th>
+      <th>Pop Size</th>
+      <th>Mutation Prob</th>
+      <th>Problem</th>
+      <th>Time</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>150</th>
-      <td>7.0</td>
-      <td>10.0</td>
-      <td>0.972641</td>
-      <td>0.0</td>
+      <th>0</th>
+      <td>1</td>
+      <td>[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...</td>
+      <td>38.0</td>
+      <td>[27.0, 27.0, 27.0, 27.0, 28.0, 29.0, 29.0, 29....</td>
+      <td>[102.0, 153.0, 204.0, 255.0, 307.0, 359.0, 410...</td>
+      <td>10</td>
+      <td>5000</td>
+      <td>50</td>
+      <td>0.05</td>
+      <td>&lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt ...</td>
+      <td>0.162858</td>
     </tr>
     <tr>
-      <th>151</th>
-      <td>7.0</td>
-      <td>11.0</td>
-      <td>0.726259</td>
-      <td>0.0</td>
+      <th>1</th>
+      <td>2</td>
+      <td>[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...</td>
+      <td>37.0</td>
+      <td>[26.0, 27.0, 27.0, 28.0, 28.0, 30.0, 30.0, 33....</td>
+      <td>[102.0, 154.0, 205.0, 257.0, 308.0, 360.0, 411...</td>
+      <td>10</td>
+      <td>5000</td>
+      <td>50</td>
+      <td>0.05</td>
+      <td>&lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt ...</td>
+      <td>0.162858</td>
     </tr>
     <tr>
-      <th>152</th>
-      <td>7.0</td>
-      <td>12.0</td>
-      <td>0.412651</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>153</th>
-      <td>7.0</td>
-      <td>13.0</td>
-      <td>0.990003</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>154</th>
-      <td>7.0</td>
-      <td>14.0</td>
-      <td>0.535660</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>155</th>
-      <td>7.0</td>
-      <td>15.0</td>
-      <td>0.559253</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>156</th>
-      <td>7.0</td>
-      <td>16.0</td>
-      <td>0.867020</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>157</th>
-      <td>7.0</td>
-      <td>17.0</td>
-      <td>0.019276</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>158</th>
-      <td>7.0</td>
-      <td>18.0</td>
-      <td>0.123097</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>159</th>
-      <td>7.0</td>
-      <td>19.0</td>
-      <td>0.808300</td>
-      <td>1.0</td>
+      <th>2</th>
+      <td>3</td>
+      <td>[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ...</td>
+      <td>38.0</td>
+      <td>[28.0, 29.0, 31.0, 31.0, 33.0, 34.0, 34.0, 34....</td>
+      <td>[102.0, 154.0, 206.0, 257.0, 309.0, 361.0, 412...</td>
+      <td>10</td>
+      <td>5000</td>
+      <td>50</td>
+      <td>0.05</td>
+      <td>&lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt ...</td>
+      <td>0.162858</td>
     </tr>
   </tbody>
 </table>
+</div>
 
-<h2 id="preparing-the-experiment-parameters">Preparing the experiment parameters<a class="headerlink" href="#preparing-the-experiment-parameters" title="Permanent link">#</a></h2>
-<pre class="highlight"><code class="language-python"># ensure defaults are in grid search
-default_grid_search_parameters = {
-    "max_iters": [5000],
-    "learning_rate_init": [0.1, 0.2, 0.4, 0.8],
-    "hidden_layer_sizes": [[4, 4, 4]],
-    "activation": [mlrose_ky.neural.activation.relu],
+<h1 id="mimic">MIMIC<a class="headerlink" href="#mimic" title="Permanent link">#</a></h1>
+<pre class="highlight"><code class="language-python">mimic_grid = {
+    "problem": [problem],
+    "pop_size": pop_size,
+    "keep_pct": keep_pct,
+    "max_attempt": max_attempt,
+    "max_iter": max_iter,
+    "seeds": [seeds],
 }
 
-default_parameters = {
-    "seed": 123456,
-    "iteration_list": 2 ** np.arange(13),
-    "max_attempts": 5000,
-    "override_ctrl_c_handler": False,  # required for running in notebook
-    "n_jobs": 5,
-    "cv": 5,
-}</code></pre>
-<h2 id="example-1-running-the-skmlprunner">Example 1: Running the SKMLPRunner<a class="headerlink" href="#example-1-running-the-skmlprunner" title="Permanent link">#</a></h2>
-<h3 id="a-clean-data">(a) Clean Data<a class="headerlink" href="#a-clean-data" title="Permanent link">#</a></h3>
-<pre class="highlight"><code class="language-python">skmlp_grid_search_parameters = {
-    **default_grid_search_parameters,
-    "max_iters": [5000],
-    "learning_rate_init": [0.0001],
-    "activation": [mlrose_ky.neural.activation.sigmoid],
-}
-
-skmlp_default_parameters = {**default_parameters, "early_stopping": True, "tol": 1e-05, "alpha": 0.001, "solver": "lbfgs"}</code></pre>
-<pre class="highlight"><code class="language-python">cx_skr = SKMLPRunner(
-    x_train=cx_tr,
-    y_train=cy_tr,
-    x_test=cx_ts,
-    y_test=cx_ts,
-    experiment_name="skmlp_clean",
-    grid_search_parameters=skmlp_grid_search_parameters,
-    **skmlp_default_parameters,
-)
-
-run_stats_df, curves_df, cv_results_df, cx_sr = cx_skr.run()</code></pre>
-<pre class="highlight"><code>Fitting 5 folds for each of 1 candidates, totalling 5 fits
+mimic_results = parallel.get_results(mimic_grid, parallel.mimic_run, verbose=True)</code></pre>
+<pre class="highlight"><code>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
 
 
-[Parallel(n_jobs=5)]: Using backend LokyBackend with 5 concurrent workers.
-[Parallel(n_jobs=5)]: Done   2 out of   5 | elapsed:    2.0s remaining:    3.0s
-[Parallel(n_jobs=5)]: Done   5 out of   5 | elapsed:  1.2min finished</code></pre>
-<p>The following plot shows the baseline predictions made for the clean dataset using the SKLearn runner.</p>
-<p>Note that the background coloring shows the prediction made by the learner for that area.<br />
-The intensity of the color is indicative of the prediction confidence level.</p>
-<pre class="highlight"><code class="language-python">print(f'Hidden layer size: {cx_sr.best_params_["hidden_layer_sizes"]}')
-plot_synthetic_dataset(x_train=cx_tr, y_train=cy_tr, x_test=cx_ts, y_test=cy_ts, classifier=cx_sr.best_estimator_.mlp)</code></pre>
-<pre class="highlight"><code>Hidden layer size: [4, 4, 4]</code></pre>
-<p><img alt="png" src="../nn_examples_files/nn_examples_22_1.png" /></p>
-<h3 id="b-noisy-data">(b) Noisy Data<a class="headerlink" href="#b-noisy-data" title="Permanent link">#</a></h3>
-<pre class="highlight"><code class="language-python">nx1_skr = SKMLPRunner(
-    x_train=nx_tr,
-    y_train=ny_tr,
-    x_test=nx_ts,
-    y_test=nx_ts,
-    experiment_name="skmlp_noisy_1",
-    grid_search_parameters=skmlp_grid_search_parameters,
-    **skmlp_default_parameters,
-)
-
-nx1_run_stats_df, nx1_curves_df, nx1_cv_results_df, nx1_sr = nx1_skr.run()</code></pre>
-<pre class="highlight"><code>Fitting 5 folds for each of 1 candidates, totalling 5 fits
+Number of params: 60
 
 
-[Parallel(n_jobs=5)]: Using backend LokyBackend with 5 concurrent workers.
-[Parallel(n_jobs=5)]: Done   2 out of   5 | elapsed:    0.4s remaining:    0.6s
-[Parallel(n_jobs=5)]: Done   5 out of   5 | elapsed:  1.5min finished</code></pre>
-<p>The following plot shows the predictions made for the noisy dataset using the sklearn runner<br />
-with the same hidden layer size as the best clean set run.</p>
-<pre class="highlight"><code class="language-python">print(f'Hidden layer size: {nx1_sr.best_params_["hidden_layer_sizes"]}')
-plot_synthetic_dataset(x_train=nx_tr, y_train=ny_tr, x_test=nx_ts, y_test=ny_ts, classifier=nx1_sr.best_estimator_.mlp)</code></pre>
-<pre class="highlight"><code>Hidden layer size: [4, 4, 4]</code></pre>
-<p><img alt="png" src="../nn_examples_files/nn_examples_26_1.png" /></p>
-<pre class="highlight"><code class="language-python">noisy_data_grid_search_parameters = {**skmlp_grid_search_parameters, "hidden_layer_sizes": [[4, 4, 4, 4]]}
-nx2_skr = SKMLPRunner(
-    x_train=nx_tr,
-    y_train=ny_tr,
-    x_test=nx_ts,
-    y_test=nx_ts,
-    experiment_name="skmlp_noisy_2",
-    grid_search_parameters=noisy_data_grid_search_parameters,
-    **skmlp_default_parameters,
-)
+[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    2.6s
+[Parallel(n_jobs=-1)]: Done  60 out of  60 | elapsed:    9.4s finished</code></pre>
+<pre class="highlight"><code class="language-python">mimic_results[0]</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-nx2_run_stats_df, nx2_curves_df, nx2_cv_results_df, nx2_sr = nx2_skr.run()</code></pre>
-<pre class="highlight"><code>Fitting 5 folds for each of 1 candidates, totalling 5 fits
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-
-[Parallel(n_jobs=5)]: Using backend LokyBackend with 5 concurrent workers.
-[Parallel(n_jobs=5)]: Done   2 out of   5 | elapsed:  2.0min remaining:  3.0min
-[Parallel(n_jobs=5)]: Done   5 out of   5 | elapsed:  2.1min finished</code></pre>
-<p>The following plot shows the predictions made for the noisy dataset using the sklearn runner<br />
-with the optimal hidden layer size.</p>
-<pre class="highlight"><code class="language-python">print(f'Hidden layer size: {nx2_sr.best_params_["hidden_layer_sizes"]}')
-plot_synthetic_dataset(x_train=nx_tr, y_train=ny_tr, x_test=nx_ts, y_test=ny_ts, classifier=nx2_sr.best_estimator_.mlp)</code></pre>
-<pre class="highlight"><code>Hidden layer size: [4, 4, 4, 4]</code></pre>
-<p><img alt="png" src="../nn_examples_files/nn_examples_29_1.png" /></p>
-<h3 id="c-extra-data">(c) Extra Data<a class="headerlink" href="#c-extra-data" title="Permanent link">#</a></h3>
-<pre class="highlight"><code class="language-python">ex1_skr = SKMLPRunner(
-    x_train=ex_tr,
-    y_train=ey_tr,
-    x_test=ex_ts,
-    y_test=ex_ts,
-    experiment_name="skmlp_extra_1",
-    grid_search_parameters=skmlp_grid_search_parameters,
-    **skmlp_default_parameters,
-)
-
-ex1_run_stats_df, ex1_curves_df, ex1_cv_results_df, ex1_sr = ex1_skr.run()</code></pre>
-<pre class="highlight"><code>Fitting 5 folds for each of 1 candidates, totalling 5 fits
-
-
-[Parallel(n_jobs=5)]: Using backend LokyBackend with 5 concurrent workers.
-[Parallel(n_jobs=5)]: Done   2 out of   5 | elapsed:  1.8min remaining:  2.6min
-[Parallel(n_jobs=5)]: Done   5 out of   5 | elapsed:  1.9min finished</code></pre>
-<p>The following plot shows the baseline predictions made for the extra-column dataset using the sklearn runner<br />
-with the same hidden layer size as the best clean set run:</p>
-<pre class="highlight"><code class="language-python">print(f'Hidden layer size: {ex1_sr.best_params_["hidden_layer_sizes"]}')
-plot_synthetic_dataset(x_train=ex_tr, y_train=ey_tr, x_test=ex_ts, y_test=ey_ts, classifier=ex1_sr.best_estimator_.mlp)</code></pre>
-<pre class="highlight"><code>Hidden layer size: [4, 4, 4]</code></pre>
-<p><img alt="png" src="../nn_examples_files/nn_examples_33_1.png" /></p>
-<pre class="highlight"><code class="language-python"># override the hidden_layer_sizes grid search.
-extra_data_grid_search_parameters = {**skmlp_grid_search_parameters, "hidden_layer_sizes": [[6, 6, 6]]}
-
-ex2_skr = SKMLPRunner(
-    x_train=ex_tr,
-    y_train=ey_tr,
-    x_test=ex_ts,
-    y_test=ex_ts,
-    experiment_name="skmlp_extra_2",
-    grid_search_parameters=extra_data_grid_search_parameters,
-    **skmlp_default_parameters,
-)
-
-ex2_run_stats_df, ex2_curves_df, ex2_cv_results_df, ex2_sr = ex2_skr.run()</code></pre>
-<pre class="highlight"><code>Fitting 5 folds for each of 1 candidates, totalling 5 fits
-
-
-[Parallel(n_jobs=5)]: Using backend LokyBackend with 5 concurrent workers.
-[Parallel(n_jobs=5)]: Done   2 out of   5 | elapsed:  1.3min remaining:  1.9min
-[Parallel(n_jobs=5)]: Done   5 out of   5 | elapsed:  2.0min finished</code></pre>
-<p>The following plot shows the baseline predictions made for the extra-column dataset using the sklearn runner<br />
-with the optimal hidden layer size:</p>
-<pre class="highlight"><code class="language-python">print(f'Hidden layer size: {ex2_sr.best_params_["hidden_layer_sizes"]}')
-plot_synthetic_dataset(x_train=ex_tr, y_train=ey_tr, x_test=ex_ts, y_test=ey_ts, classifier=ex2_sr.best_estimator_.mlp)</code></pre>
-<pre class="highlight"><code>Hidden layer size: [6, 6, 6]</code></pre>
-<p><img alt="png" src="../nn_examples_files/nn_examples_36_1.png" /></p>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Seed</th>
+      <th>Best State</th>
+      <th>Best Fitness</th>
+      <th>Fitness Value</th>
+      <th>Fevals</th>
+      <th>Max Attempt</th>
+      <th>Max Iters</th>
+      <th>Pop Size</th>
+      <th>Keep Pct</th>
+      <th>Problem</th>
+      <th>Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>[1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, ...</td>
+      <td>25.0</td>
+      <td>[25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25....</td>
+      <td>[102.0, 153.0, 204.0, 255.0, 306.0, 357.0, 408...</td>
+      <td>10</td>
+      <td>5000</td>
+      <td>50</td>
+      <td>0.1</td>
+      <td>&lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt ...</td>
+      <td>0.295165</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>[1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, ...</td>
+      <td>29.0</td>
+      <td>[27.0, 29.0, 29.0, 29.0, 29.0, 29.0, 29.0, 29....</td>
+      <td>[102.0, 154.0, 205.0, 256.0, 307.0, 358.0, 409...</td>
+      <td>10</td>
+      <td>5000</td>
+      <td>50</td>
+      <td>0.1</td>
+      <td>&lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt ...</td>
+      <td>0.295165</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>[1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, ...</td>
+      <td>26.0</td>
+      <td>[26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26....</td>
+      <td>[102.0, 153.0, 204.0, 255.0, 306.0, 357.0, 408...</td>
+      <td>10</td>
+      <td>5000</td>
+      <td>50</td>
+      <td>0.1</td>
+      <td>&lt;mlrose_ky.opt_probs.discrete_opt.DiscreteOpt ...</td>
+      <td>0.295165</td>
+    </tr>
+  </tbody>
+</table>
+</div>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../tutorial_examples/" class="btn btn-neutral float-left" title="2 - Fitness function in code"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../nn_class_with_sklearn/" class="btn btn-neutral float-right" title="4 - How to use NeuralNetwork() with sklearn (EASY)">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../nn_class_with_sklearn/" class="btn btn-neutral float-left" title="4 - How to use NeuralNetwork() with sklearn (EASY)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
     </div>
 
   <hr/>
@@ -963,10 +1111,8 @@ plot_synthetic_dataset(x_train=ex_tr, y_train=ey_tr, x_test=ex_ts, y_test=ey_ts,
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../tutorial_examples/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../nn_class_with_sklearn/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
-    
-      <span><a href="../nn_class_with_sklearn/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

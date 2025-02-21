@@ -444,6 +444,10 @@
     </li>
     </ul>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../parallelizable_runs/">5 - Run mlrose FASTER - parallelizable code</a>
+    <ul>
+    </ul>
+                  </li>
               </ul>
       </div>
     </div>
@@ -480,8 +484,7 @@
 - <span class="arithmatex">\( r \)</span> is the rate of geometric decay; and<br />
 - <span class="arithmatex">\( T_{min} \)</span> is the minimum temperature value.</p>
 <h3 id="class-declaration">Class declaration<a class="headerlink" href="#class-declaration" title="Permanent link">#</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span> <span class="nc">GeomDecay</span><span class="p">(</span><span class="n">init_temp</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">min_temp</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">class GeomDecay(init_temp=1.0, decay=0.99, min_temp=0.001)</code></pre>
 <p><strong>Parameters</strong> <a href="https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/decay/geometric_decay.py#L7">[source]</a></p>
 <ul>
 <li><strong>init_temp</strong> (<em>float, default: 1.0</em>) – Initial value of temperature parameter T. Must be greater than 0.</li>
@@ -490,16 +493,14 @@
 </ul>
 <h3 id="class-method">Class method<a class="headerlink" href="#class-method" title="Permanent link">#</a></h3>
 <p>Evaluate the temperature parameter at time t.<br />
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">evaluate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</span></code></pre></div></p>
+<pre class="highlight"><code class="language-python">evaluate(t)</code></pre></p>
 <p><strong>Parameters</strong>: <strong>t</strong> (<em>int</em>) – Time at which the temperature parameter T is evaluated.</p>
 <p><strong>Returns</strong>: <strong>temp</strong> (<em>float</em>) – Temperature parameter at time t.</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">#</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">mlrose_ky</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">schedule</span> <span class="o">=</span> <span class="n">mlrose_ky</span><span class="o">.</span><span class="n">GeomDecay</span><span class="p">(</span><span class="n">init_temp</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">min_temp</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">schedule</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="mf">7.73780</span><span class="o">...</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import mlrose_ky
+&gt;&gt;&gt; schedule = mlrose_ky.GeomDecay(init_temp=10, decay=0.95, min_temp=1)
+&gt;&gt;&gt; schedule.evaluate(5)
+7.73780...</code></pre>
 <h2 id="arithmetic-decay">Arithmetic Decay<a class="headerlink" href="#arithmetic-decay" title="Permanent link">#</a></h2>
 <p>Schedule for arithmetically decaying the simulated annealing temperature parameter T according to the formula:</p>
 <h3 id="formula_1">Formula<a class="headerlink" href="#formula_1" title="Permanent link">#</a></h3>
@@ -509,8 +510,7 @@
 *   <span class="arithmatex">\( r \)</span> is the rate of arithmetic decay; and<br />
 *   <span class="arithmatex">\( T_{min} \)</span> is the minimum temperature value.</p>
 <h3 id="class-declaration_1">Class declaration<a class="headerlink" href="#class-declaration_1" title="Permanent link">#</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span> <span class="nc">ArithDecay</span><span class="p">(</span><span class="n">init_temp</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span> <span class="mf">0.0001</span><span class="p">,</span> <span class="n">min_temp</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">class ArithDecay(init_temp=1.0, decay= 0.0001, min_temp=0.001)</code></pre>
 <p><strong>Parameters</strong> <a href="https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/decay/arithmetic_decay.py#L7">[source]</a></p>
 <ul>
 <li><strong>init_temp</strong> (<em>float, default: 1.0</em>) – Initial value of temperature parameter T. Must be greater than 0.</li>
@@ -519,16 +519,14 @@
 </ul>
 <h3 id="class-method_1">Class method<a class="headerlink" href="#class-method_1" title="Permanent link">#</a></h3>
 <p>Evaluate the temperature parameter at time t.<br />
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">evaluate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</span></code></pre></div></p>
+<pre class="highlight"><code class="language-python">evaluate(t)</code></pre></p>
 <p><strong>Parameters</strong>: <strong>t</strong> (<em>int</em>) – Time at which the temperature paramter T is evaluated.</p>
 <p><strong>Returns</strong>: <strong>temp</strong> (<em>float</em>) – Temperature parameter at time t.</p>
 <h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">#</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">mlrose_ky</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">schedule</span> <span class="o">=</span> <span class="n">mlrose_ky</span><span class="o">.</span><span class="n">ArithDecay</span><span class="p">(</span><span class="n">init_temp</span>\<span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">min_temp</span>\<span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">schedule</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="mf">5.25</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import mlrose_ky
+&gt;&gt;&gt; schedule = mlrose_ky.ArithDecay(init_temp\=10, decay=0.95, min_temp\=1)
+&gt;&gt;&gt; schedule.evaluate(5)
+5.25</code></pre>
 <h2 id="exponential-decay">Exponential Decay<a class="headerlink" href="#exponential-decay" title="Permanent link">#</a></h2>
 <p>Schedule for exponentially decaying the simulated annealing temperature parameter T according to the formula.</p>
 <h3 id="formula_2">Formula<a class="headerlink" href="#formula_2" title="Permanent link">#</a></h3>
@@ -538,43 +536,37 @@
 *   <span class="arithmatex">\( r \)</span> is the rate of arithmetic decay; and<br />
 *   <span class="arithmatex">\( T_{min} \)</span> is the minimum temperature value.</p>
 <h3 id="class-declaration_2">Class declaration<a class="headerlink" href="#class-declaration_2" title="Permanent link">#</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">class</span> <span class="nc">ExpDecay</span><span class="p">(</span><span class="n">init_temp</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">exp_const</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">min_temp</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">class ExpDecay(init_temp=1.0, exp_const=0.005, min_temp=0.001)</code></pre>
 <p><strong>Parameters</strong> <a href="https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/decay/exponential_decay.py#L9">[source]</a><br />
 *   <strong>init_temp</strong> (<em>float, default: 1.0</em>) – Initial value of temperature parameter T. Must be greater than 0.<br />
 *   <strong>exp_const</strong> (<em>float, default: 0.005</em>) – Exponential constant parameter, r. Must be greater than 0.<br />
 *   <strong>min_temp</strong> (<em>float, default: 0.001</em>) – Minimum value of temperature parameter. Must be greater than 0.</p>
 <h3 id="class-method_2">Class method<a class="headerlink" href="#class-method_2" title="Permanent link">#</a></h3>
 <p>Evaluate the temperature parameter at time t.<br />
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">evaluate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</span></code></pre></div></p>
+<pre class="highlight"><code class="language-python">evaluate(t)</code></pre></p>
 <p><strong>Parameters</strong>: <strong>t</strong> (<em>int</em>) – Time at which the temperature paramter T is evaluated.</p>
 <p><strong>Returns</strong>: <strong>temp</strong> (<em>float</em>) – Temperature parameter at time t.</p>
 <h3 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">#</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">mlrose_ky</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">schedule</span> <span class="o">=</span> <span class="n">mlrose_ky</span><span class="o">.</span><span class="n">ExpDecay</span><span class="p">(</span><span class="n">init_temp</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">exp_const</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">min_temp</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">schedule</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="mf">7.78800</span><span class="o">...</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import mlrose_ky
+&gt;&gt;&gt; schedule = mlrose_ky.ExpDecay(init_temp=10, exp_const=0.05, min_temp=1)
+&gt;&gt;&gt; schedule.evaluate(5)
+7.78800...</code></pre>
 <h2 id="write-your-own-custom-schedule">Write your own custom schedule<a class="headerlink" href="#write-your-own-custom-schedule" title="Permanent link">#</a></h2>
 <p>Class for generating your own temperature schedule.<br />
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">class</span> <span class="nc">CustomSchedule</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span></code></pre></div></p>
+<pre class="highlight"><code class="language-python">class CustomSchedule(schedule, **kwargs)</code></pre></p>
 <p><strong>Parameters</strong> <a href="https://github.com/knakamura13/mlrose-ky/blob/123e66187276cdd7a188c48aff97360a6803d5f2/mlrose_ky/algorithms/decay/custom_decay.py#L9">[source]</a><br />
 *   <strong>schedule</strong> (<em>callable</em>) – Function for calculating the temperature at time t with the signature <code>schedule(t, **kwargs)</code>.<br />
 *   <strong>kwargs</strong> (<em>additional arguments</em>) – Additional parameters to be passed to schedule.</p>
 <h3 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">#</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">mlrose_ky</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">custom</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span> <span class="k">return</span> <span class="n">t</span> <span class="o">+</span> <span class="n">c</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">kwargs</span> \<span class="o">=</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">schedule</span> \<span class="o">=</span> <span class="n">mlrose_ky</span><span class="o">.</span><span class="n">CustomSchedule</span><span class="p">(</span><span class="n">custom</span><span class="p">,</span> \<span class="o">*</span>\<span class="o">*</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">schedule</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="mi">15</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">&gt;&gt;&gt; import mlrose_ky
+&gt;&gt;&gt; def custom(t, c): return t + c
+&gt;&gt;&gt; kwargs \= {'c': 10}
+&gt;&gt;&gt; schedule \= mlrose_ky.CustomSchedule(custom, \*\*kwargs)
+&gt;&gt;&gt; schedule.evaluate(5)
+15</code></pre>
 <h3 id="class-method_3">Class method<a class="headerlink" href="#class-method_3" title="Permanent link">#</a></h3>
 <p>Evaluate the temperature parameter at time t.<br />
-<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">evaluate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</span></code></pre></div></p>
+<pre class="highlight"><code class="language-python">evaluate(t)</code></pre></p>
 <p><strong>Parameters</strong>: <strong>t</strong> (<em>int</em>) – Time at which the temperature paramter T is evaluated.</p>
 <p><strong>Returns</strong>: <strong>temp</strong> (<em>float</em>) – Temperature parameter at time t.</p>
               

@@ -444,6 +444,10 @@
     </li>
     </ul>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../parallelizable_runs/">5 - Run mlrose FASTER - parallelizable code</a>
+    <ul>
+    </ul>
+                  </li>
               </ul>
       </div>
     </div>
@@ -480,9 +484,8 @@
 <p>Visualization is part of the analysis and, for the most part, you're supposed to do that by yourself. Just including<br />
 images of the before/after state of a problem really isn't useful in terms of what you're supposed to be analyzing.</p>
 <h1 id="import-libraries">Import Libraries<a class="headerlink" href="#import-libraries" title="Permanent link">#</a></h1>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">chess</span> <span class="n">IPython</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>Requirement already satisfied: chess in /Users/kylenakamura/anaconda3/envs/machine-learning/lib/python3.11/site-packages (1.10.0)
+<pre class="highlight"><code class="language-python">%pip install chess IPython</code></pre>
+<pre class="highlight"><code>Requirement already satisfied: chess in /Users/kylenakamura/anaconda3/envs/machine-learning/lib/python3.11/site-packages (1.10.0)
 Requirement already satisfied: IPython in /Users/kylenakamura/anaconda3/envs/machine-learning/lib/python3.11/site-packages (8.25.0)
 Requirement already satisfied: decorator in /Users/kylenakamura/anaconda3/envs/machine-learning/lib/python3.11/site-packages (from IPython) (5.1.1)
 Requirement already satisfied: jedi&gt;=0.16 in /Users/kylenakamura/anaconda3/envs/machine-learning/lib/python3.11/site-packages (from IPython) (0.18.1)
@@ -500,48 +503,43 @@ Requirement already satisfied: executing in /Users/kylenakamura/anaconda3/envs/m
 Requirement already satisfied: asttokens in /Users/kylenakamura/anaconda3/envs/machine-learning/lib/python3.11/site-packages (from stack-data-&gt;IPython) (2.0.5)
 Requirement already satisfied: pure-eval in /Users/kylenakamura/anaconda3/envs/machine-learning/lib/python3.11/site-packages (from stack-data-&gt;IPython) (0.2.2)
 Requirement already satisfied: six in /Users/kylenakamura/anaconda3/envs/machine-learning/lib/python3.11/site-packages (from asttokens-&gt;stack-data-&gt;IPython) (1.16.0)
-Note: you may need to restart the kernel to use updated packages.
-</code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">import</span> <span class="nn">logging</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="kn">import</span> <span class="nn">string</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="kn">from</span> <span class="nn">ast</span> <span class="kn">import</span> <span class="n">literal_eval</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kn">import</span> <span class="nn">chess</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="kn">import</span> <span class="nn">mlrose_ky</span> <span class="k">as</span> <span class="nn">mlrose</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="kn">from</span> <span class="nn">mlrose_ky.generators</span> <span class="kn">import</span> <span class="n">QueensGenerator</span><span class="p">,</span> <span class="n">MaxKColorGenerator</span><span class="p">,</span> <span class="n">TSPGenerator</span>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="kn">from</span> <span class="nn">mlrose_ky.runners</span> <span class="kn">import</span> <span class="n">SARunner</span><span class="p">,</span> <span class="n">GARunner</span><span class="p">,</span> <span class="n">NNGSRunner</span>
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>
-</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="c1"># Hide warnings from libraries</span>
-</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
-</span></code></pre></div>
+Note: you may need to restart the kernel to use updated packages.</code></pre>
+<pre class="highlight"><code class="language-python">from IPython.display import HTML
+
+import numpy as np
+import logging
+import networkx as nx
+import matplotlib.pyplot as plt
+import string
+
+from ast import literal_eval
+import chess
+
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
+from sklearn.metrics import accuracy_score
+
+import mlrose_ky as mlrose
+from mlrose_ky.generators import QueensGenerator, MaxKColorGenerator, TSPGenerator
+from mlrose_ky.runners import SARunner, GARunner, NNGSRunner
+
+# Hide warnings from libraries
+logging.basicConfig(level=logging.WARNING)</code></pre>
 <h1 id="example-1-solving-the-8-queens-problem-using-the-sa-algorithm">Example 1: Solving the 8-Queens problem using the SA algorithm<a class="headerlink" href="#example-1-solving-the-8-queens-problem-using-the-sa-algorithm" title="Permanent link">#</a></h1>
 <h2 id="initializing-and-viewing-the-problem">Initializing and viewing the problem<a class="headerlink" href="#initializing-and-viewing-the-problem" title="Permanent link">#</a></h2>
 <p>First, we'll use the <code>QueensGenerator</code> to create an instance of the 8-Queens problem.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Generate a new 8-Queens optimization problem using a fixed seed</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">problem</span> <span class="o">=</span> <span class="n">QueensGenerator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">123456</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python"># Generate a new 8-Queens optimization problem using a fixed seed
+problem = QueensGenerator.generate(seed=123456, size=8)</code></pre>
 <p>The initial, un-optimized state can be seen below, both as a list and as a chess board.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># View the initial state as a list</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">state</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Initial state:&#39;</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># View the initial state as a chess board</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">board_layout</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(([</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)]</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">[])</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Q&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="p">([</span><span class="nb">str</span><span class="p">((</span><span class="mi">7</span> <span class="o">-</span> <span class="n">s</span><span class="p">))]</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="mi">7</span> <span class="k">else</span> <span class="p">[]))</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">state</span><span class="p">])</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">chess</span><span class="o">.</span><span class="n">Board</span><span class="p">(</span><span class="n">board_layout</span><span class="p">)</span>  <span class="c1"># You may need to &quot;trust&quot; this notebook for the board visualization to work</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>Initial state: [2 3 3 2 7 0 1 1]
-</code></pre></div>
+<pre class="highlight"><code class="language-python"># View the initial state as a list
+state = problem.get_state()
+print('Initial state:', state)
+
+# View the initial state as a chess board
+board_layout = "/".join(["".join(([str(s)] if s &gt; 0 else []) + ["Q"] + ([str((7 - s))] if s &lt; 7 else [])) for s in state])
+chess.Board(board_layout)  # You may need to "trust" this notebook for the board visualization to work</code></pre>
+<pre class="highlight"><code>Initial state: [2 3 3 2 7 0 1 1]</code></pre>
 <p><img alt="svg" src="../problem_examples_files/problem_examples_8_1.svg" /></p>
 <h2 id="solving-8-queens-using-a-runner-ie-grid-search">Solving 8-Queens using a Runner (i.e., grid search)<a class="headerlink" href="#solving-8-queens-using-a-runner-ie-grid-search" title="Permanent link">#</a></h2>
 <p>Runners are used to execute "grid search" experiments on optimization problems.</p>
@@ -554,38 +552,34 @@ Note: you may need to restart the kernel to use updated packages.
 <p><em>Disclaimer: the values used here are just toy values picked specifically for this example. <br />
 You will have to choose your own range of values for your experiments. <br />
 I strongly recommend you don't just copy these, or you will find that the grading is unlikely to go the way you would like.</em> </p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Create an SA Runner instance to solve the problem</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">sa</span> <span class="o">=</span> <span class="n">SARunner</span><span class="p">(</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">problem</span><span class="o">=</span><span class="n">problem</span><span class="p">,</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">experiment_name</span><span class="o">=</span><span class="s2">&quot;queens_8_sa&quot;</span><span class="p">,</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">seed</span><span class="o">=</span><span class="mi">123456</span><span class="p">,</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">output_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># Note: specify an output directory (str) to have these results saved to disk</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">max_attempts</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">temperature_list</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">decay_list</span><span class="o">=</span><span class="p">[</span><span class="n">mlrose</span><span class="o">.</span><span class="n">GeomDecay</span><span class="p">],</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="n">iteration_list</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">),</span>  <span class="c1"># list of 11 integers from 2^0 to 2^11</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="p">)</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="c1"># Run the SA Runner and retrieve its results</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="n">df_run_stats</span><span class="p">,</span> <span class="n">df_run_curves</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-</span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Calculate some simple stats about the experiment</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">temperatures_per_run</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">temperature_list</span><span class="p">))</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">decays_per_run</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">decay_list</span><span class="p">))</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">iters_per_run</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">iteration_list</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">total_runs</span> <span class="o">=</span> <span class="n">temperatures_per_run</span> <span class="o">*</span> <span class="n">decays_per_run</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The experiment executed </span><span class="si">{</span><span class="n">total_runs</span><span class="si">}</span><span class="s2"> runs, each with </span><span class="si">{</span><span class="n">iters_per_run</span><span class="si">}</span><span class="s2"> snapshots at different iterations.&quot;</span><span class="p">)</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;In total, the output dataframe should contain </span><span class="si">{</span><span class="n">total_runs</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">iters_per_run</span><span class="si">}</span><span class="s2"> rows.&quot;</span><span class="p">)</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>The experiment executed 6 runs, each with 12 snapshots at different iterations.
-In total, the output dataframe should contain 72 rows.
-</code></pre></div>
+<pre class="highlight"><code class="language-python"># Create an SA Runner instance to solve the problem
+sa = SARunner(
+    problem=problem,
+    experiment_name="queens_8_sa",
+    seed=123456,
+    output_directory=None,  # Note: specify an output directory (str) to have these results saved to disk
+    max_attempts=100,
+    temperature_list=[0.1, 0.5, 0.75, 1.0, 2.0, 5.0],
+    decay_list=[mlrose.GeomDecay],
+    iteration_list=2 ** np.arange(11),  # list of 11 integers from 2^0 to 2^11
+)
+
+# Run the SA Runner and retrieve its results
+df_run_stats, df_run_curves = sa.run()</code></pre>
+<pre class="highlight"><code class="language-python"># Calculate some simple stats about the experiment
+temperatures_per_run = max(1, len(sa.temperature_list))
+decays_per_run = max(1, len(sa.decay_list))
+iters_per_run = len(sa.iteration_list) + 1
+total_runs = temperatures_per_run * decays_per_run
+
+print(f"The experiment executed {total_runs} runs, each with {iters_per_run} snapshots at different iterations.")
+print(f"In total, the output dataframe should contain {total_runs * iters_per_run} rows.")</code></pre>
+<pre class="highlight"><code>The experiment executed 6 runs, each with 12 snapshots at different iterations.
+In total, the output dataframe should contain 72 rows.</code></pre>
 <p>The <code>df_run_stats</code> dataframe contains snapshots of the state of the algorithm at the iterations specified in the <code>iteration_list</code>.</p>
 <p>Since <code>iterations_list</code> contains 11 numbers, and iteration 0 is always included in the results, each run will take up 12 rows of the dataframe.</p>
 <p>The first 12 rows (i.e., results from the first run) are shown below:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">HTML</span><span class="p">(</span><span class="n">df_run_stats</span><span class="p">[[</span><span class="s2">&quot;Iteration&quot;</span><span class="p">,</span> <span class="s2">&quot;Fitness&quot;</span><span class="p">,</span> <span class="s2">&quot;FEvals&quot;</span><span class="p">,</span> <span class="s2">&quot;Time&quot;</span><span class="p">,</span> <span class="s2">&quot;State&quot;</span><span class="p">]][:</span><span class="n">iters_per_run</span><span class="p">]</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">HTML(df_run_stats[["Iteration", "Fitness", "FEvals", "Time", "State"]][:iters_per_run].to_html(index=False))</code></pre>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -685,8 +679,7 @@ In total, the output dataframe should contain 72 rows.
 </table>
 
 <p>Some information was intentionally excluded from the previous output. Let's now preview the entirety of the first run:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">HTML</span><span class="p">(</span><span class="n">df_run_stats</span><span class="p">[:</span><span class="n">iters_per_run</span><span class="p">]</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">HTML(df_run_stats[:iters_per_run].to_html(index=False))</code></pre>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -889,12 +882,11 @@ In total, the output dataframe should contain 72 rows.
 <p>To pick out the most performant run from the dataframe, we need to find the row with the best fitness.<br />
 Since Queens is a minimization problem, we're looking for the row with minimal fitness (i.e., zero).</p>
 <p>It's likely that multiple runs will achieve the same fitness, so we need to find the run that achieved the best <code>Fitness</code> in the fewest <code>FEvals</code> (<em>Note: we could make this selection using <code>Iterations</code> or <code>Time</code> if we so desired.</em>)</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">best_fitness</span> <span class="o">=</span> <span class="n">df_run_stats</span><span class="p">[</span><span class="s2">&quot;Fitness&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>  <span class="c1"># Should be 0.0 in this case</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c1"># Get all runs with the best fitness value</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">best_runs</span> <span class="o">=</span> <span class="n">df_run_stats</span><span class="p">[</span><span class="n">df_run_stats</span><span class="p">[</span><span class="s2">&quot;Fitness&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">best_fitness</span><span class="p">]</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">best_runs</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">best_fitness = df_run_stats["Fitness"].min()  # Should be 0.0 in this case
+
+# Get all runs with the best fitness value
+best_runs = df_run_stats[df_run_stats["Fitness"] == best_fitness]
+best_runs</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1054,15 +1046,13 @@ Since Queens is a minimization problem, we're looking for the row with minimal f
 
 <p>This gives us our candidates for the best run. </p>
 <p>The best run will be the one that achieved the best fitness in the fewest evaluations.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">minimum_evaluations</span> <span class="o">=</span> <span class="n">best_runs</span><span class="p">[</span><span class="s2">&quot;FEvals&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>  <span class="c1"># Should be 461 in this case</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># Extract the best run with the minimum number of evaluations</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">best_run</span> <span class="o">=</span> <span class="n">best_runs</span><span class="p">[</span><span class="n">best_runs</span><span class="p">[</span><span class="s2">&quot;FEvals&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">minimum_evaluations</span><span class="p">]</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">minimum_evaluations = best_runs["FEvals"].min()  # Should be 461 in this case
+
+# Extract the best run with the minimum number of evaluations
+best_run = best_runs[best_runs["FEvals"] == minimum_evaluations]</code></pre>
 <p>The best run using these criteria is as follows:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">best_run</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>Iteration                                      512
+<pre class="highlight"><code class="language-python">print(best_run.iloc[0])</code></pre>
+<pre class="highlight"><code>Iteration                                      512
 Fitness                                        0.0
 FEvals                                         427
 Time                                      0.044455
@@ -1074,18 +1064,14 @@ schedule_min_temp                            0.001
 schedule_current_value                    1.999107
 Temperature                                    2.0
 max_iters                                     1024
-Name: 58, dtype: object
-</code></pre></div>
+Name: 58, dtype: object</code></pre>
 <p>Which has the following identifying state information:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">best_temperature_param</span> <span class="o">=</span> <span class="n">best_run</span><span class="p">[</span><span class="s2">&quot;Temperature&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">init_temp</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">best_temperature_param</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>2.0
-</code></pre></div>
+<pre class="highlight"><code class="language-python">best_temperature_param = best_run["Temperature"].iloc[0].init_temp
+best_temperature_param</code></pre>
+<pre class="highlight"><code>2.0</code></pre>
 <p>To map this result back to the original output of the Runner, we are looking for all rows in <code>df_run_stats</code> where the temperature is equal to 2.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">run_stats_best_run</span> <span class="o">=</span> <span class="n">df_run_stats</span><span class="p">[</span><span class="n">df_run_stats</span><span class="p">[</span><span class="s2">&quot;schedule_init_temp&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">best_temperature_param</span><span class="p">]</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">run_stats_best_run</span><span class="p">[[</span><span class="s2">&quot;Iteration&quot;</span><span class="p">,</span> <span class="s2">&quot;Fitness&quot;</span><span class="p">,</span> <span class="s2">&quot;FEvals&quot;</span><span class="p">,</span> <span class="s2">&quot;Time&quot;</span><span class="p">,</span> <span class="s2">&quot;State&quot;</span><span class="p">]]</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">run_stats_best_run = df_run_stats[df_run_stats["schedule_init_temp"] == best_temperature_param]
+run_stats_best_run[["Iteration", "Fitness", "FEvals", "Time", "State"]]</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1213,9 +1199,8 @@ Name: 58, dtype: object
 </div>
 
 <p>And the best state associated with this is:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">best_state</span> <span class="o">=</span> <span class="n">run_stats_best_run</span><span class="p">[[</span><span class="s2">&quot;schedule_current_value&quot;</span><span class="p">,</span> <span class="s2">&quot;schedule_init_temp&quot;</span><span class="p">,</span> <span class="s2">&quot;schedule_min_temp&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">best_state</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">best_state = run_stats_best_run[["schedule_current_value", "schedule_init_temp", "schedule_min_temp"]].tail(1)
+best_state</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1251,39 +1236,34 @@ Name: 58, dtype: object
 </div>
 
 <p>The final state is as follows:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">state</span> <span class="o">=</span> <span class="n">literal_eval</span><span class="p">(</span><span class="n">run_stats_best_run</span><span class="p">[</span><span class="s2">&quot;State&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="n">board_layout</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(([</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)]</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">[])</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Q&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="p">([</span><span class="nb">str</span><span class="p">((</span><span class="mi">7</span> <span class="o">-</span> <span class="n">s</span><span class="p">))]</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="mi">7</span> <span class="k">else</span> <span class="p">[]))</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">state</span><span class="p">])</span>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="n">board</span> <span class="o">=</span> <span class="n">chess</span><span class="o">.</span><span class="n">Board</span><span class="p">(</span><span class="n">board_layout</span><span class="p">)</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="n">board</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>[7, 1, 3, 0, 6, 4, 2, 5]
-</code></pre></div>
+<pre class="highlight"><code class="language-python">state = literal_eval(run_stats_best_run["State"].tail(1).values[0])
+print(state)
+
+board_layout = "/".join(["".join(([str(s)] if s &gt; 0 else []) + ["Q"] + ([str((7 - s))] if s &lt; 7 else [])) for s in state])
+board = chess.Board(board_layout)
+board</code></pre>
+<pre class="highlight"><code>[7, 1, 3, 0, 6, 4, 2, 5]</code></pre>
 <p><img alt="svg" src="../problem_examples_files/problem_examples_29_1.svg" /></p>
 <h2 id="example-2-generating-and-running-max-k-color-using-the-ga-algorithm">Example 2: Generating and Running Max K Color using the GA algorithm<a class="headerlink" href="#example-2-generating-and-running-max-k-color-using-the-ga-algorithm" title="Permanent link">#</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Generate a new Max K problem using a fixed seed.</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">problem</span> <span class="o">=</span> <span class="n">MaxKColorGenerator</span><span class="p">()</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">123456</span><span class="p">,</span> <span class="n">number_of_nodes</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_connections_per_node</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_colors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python"># Generate a new Max K problem using a fixed seed.
+problem = MaxKColorGenerator().generate(seed=123456, number_of_nodes=10, max_connections_per_node=3, max_colors=3)</code></pre>
 <p>The input graph generated for the problem looks like this:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">source_graph</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">source_graph</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">nx.draw(problem.source_graph, pos=nx.spring_layout(problem.source_graph, seed=3))
+plt.show()</code></pre>
 <p><img alt="png" src="../problem_examples_files/problem_examples_33_0.png" /></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># create a runner class and solve the problem</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">ga</span> <span class="o">=</span> <span class="n">GARunner</span><span class="p">(</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    <span class="n">problem</span><span class="o">=</span><span class="n">problem</span><span class="p">,</span>
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    <span class="n">experiment_name</span><span class="o">=</span><span class="s2">&quot;max_k_ga&quot;</span><span class="p">,</span>
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    <span class="n">output_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># note: specify an output directory to have results saved to disk</span>
-</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>    <span class="n">seed</span><span class="o">=</span><span class="mi">123456</span><span class="p">,</span>
-</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>    <span class="n">iteration_list</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">),</span>
-</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>    <span class="n">population_sizes</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
-</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>    <span class="n">mutation_rates</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
-</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="p">)</span>
-</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>
-</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="c1"># the two data frames will contain the results</span>
-</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="n">df_run_stats</span><span class="p">,</span> <span class="n">df_run_curves</span> <span class="o">=</span> <span class="n">ga</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python"># create a runner class and solve the problem
+ga = GARunner(
+    problem=problem,
+    experiment_name="max_k_ga",
+    output_directory=None,  # note: specify an output directory to have results saved to disk
+    seed=123456,
+    iteration_list=2 ** np.arange(11),
+    population_sizes=[10, 20, 50],
+    mutation_rates=[0.1, 0.2, 0.5],
+)
+
+# the two data frames will contain the results
+df_run_stats, df_run_curves = ga.run()</code></pre>
 <p>The preceding code will run the <code>GA</code> algorithm nine times for at most 1024 iterations per run.<br />
 Each run is a permutation from the list of <code>population_sizes</code> and <code>mutation_rates</code>.</p>
 <p>Note that the initial state parameters here are just toy values picked specifically<br />
@@ -1294,8 +1274,7 @@ that the grading is unlikely to go the way you would like.</p>
 <p>The output in the <code>df_run_stats</code> dataframe contains snapshots of the state of the algorithm at the iterations<br />
 specified in the <code>iteration_list</code> passed into the runner class.</p>
 <p>The first row (corresponding to the first run of this algorithm) are as follows:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">df_run_stats</span><span class="p">[[</span><span class="s2">&quot;Iteration&quot;</span><span class="p">,</span> <span class="s2">&quot;Fitness&quot;</span><span class="p">,</span> <span class="s2">&quot;FEvals&quot;</span><span class="p">,</span> <span class="s2">&quot;Time&quot;</span><span class="p">,</span> <span class="s2">&quot;State&quot;</span><span class="p">]][</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">df_run_stats[["Iteration", "Fitness", "FEvals", "Time", "State"]][0:1]</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1336,9 +1315,8 @@ specified in the <code>iteration_list</code> passed into the runner class.</p>
 
 <p>The state information is excluded from the previous output.</p>
 <p>A sample of this is below:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">state_sample</span> <span class="o">=</span> <span class="n">df_run_stats</span><span class="p">[[</span><span class="s2">&quot;Population Size&quot;</span><span class="p">,</span> <span class="s2">&quot;Mutation Rate&quot;</span><span class="p">]][:</span><span class="mi">1</span><span class="p">]</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">state_sample</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">state_sample = df_run_stats[["Population Size", "Mutation Rate"]][:1]
+state_sample</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1375,10 +1353,9 @@ specified in the <code>iteration_list</code> passed into the runner class.</p>
 As Max-K-Color is a minimization problem, you'd pick the row with the minimum fitness.</p>
 <p>However, I'm going to look in the <code>run_curves</code> (which stores minimal basic information every iteration) to<br />
 find out which input state achieved the best fitness in the fewest fitness evaluations.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">best_fitness</span> <span class="o">=</span> <span class="n">df_run_curves</span><span class="p">[</span><span class="s2">&quot;Fitness&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">best_runs</span> <span class="o">=</span> <span class="n">df_run_curves</span><span class="p">[</span><span class="n">df_run_curves</span><span class="p">[</span><span class="s2">&quot;Fitness&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">best_fitness</span><span class="p">]</span>
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="n">best_runs</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">best_fitness = df_run_curves["Fitness"].min()
+best_runs = df_run_curves[df_run_curves["Fitness"] == best_fitness]
+best_runs</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1504,13 +1481,11 @@ find out which input state achieved the best fitness in the fewest fitness evalu
 <p>This gives us nine candidates for the best run. We are going to pick the one with<br />
 that reached the best fitness value in the fewest number of evaluations.</p>
 <p>(We could also have chosen to use <code>Iterations</code> as our criteria.)</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">minimum_evaluations</span> <span class="o">=</span> <span class="n">best_runs</span><span class="p">[</span><span class="s2">&quot;FEvals&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="n">best_run</span> <span class="o">=</span> <span class="n">best_runs</span><span class="p">[</span><span class="n">best_runs</span><span class="p">[</span><span class="s2">&quot;FEvals&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">minimum_evaluations</span><span class="p">]</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">minimum_evaluations = best_runs["FEvals"].min()
+
+best_run = best_runs[best_runs["FEvals"] == minimum_evaluations]</code></pre>
 <p>The best runs using these criteria is as follows:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">best_run</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">best_run</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1565,20 +1540,17 @@ that reached the best fitness value in the fewest number of evaluations.</p>
 
 <p>We will arbitrarily pick the first row for this example,<br />
 which has the following identifying state information:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">best_mr</span> <span class="o">=</span> <span class="n">best_run</span><span class="p">[</span><span class="s2">&quot;Mutation Rate&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="n">best_pop_size</span> <span class="o">=</span> <span class="n">best_run</span><span class="p">[</span><span class="s2">&quot;Population Size&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best Mutation Rate: </span><span class="si">{</span><span class="n">best_mr</span><span class="si">}</span><span class="s2">, best Population Size: </span><span class="si">{</span><span class="n">best_pop_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>Best Mutation Rate: 0.1, best Population Size: 10
-</code></pre></div>
+<pre class="highlight"><code class="language-python">best_mr = best_run["Mutation Rate"].iloc()[0]
+best_pop_size = best_run["Population Size"].iloc()[0]
+print(f"Best Mutation Rate: {best_mr}, best Population Size: {best_pop_size}")</code></pre>
+<pre class="highlight"><code>Best Mutation Rate: 0.1, best Population Size: 10</code></pre>
 <p>To map this back to the <code>run_stats</code> we look at the configuration data included in<br />
 the curve data. The curve data includes at least the minimum identifying information<br />
 to determine which run each row came from.</p>
 <p>In this case, the values we are looking for are the <code>Mutation Rate</code> and <code>Population Size</code>.</p>
 <p>So, we are looking for all rows in <code>df_run_stats</code> where the mutation rate and population size are equal to our best values.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">run_stats_best_run</span> <span class="o">=</span> <span class="n">df_run_stats</span><span class="p">[(</span><span class="n">df_run_stats</span><span class="p">[</span><span class="s2">&quot;Mutation Rate&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">best_mr</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_run_stats</span><span class="p">[</span><span class="s2">&quot;Population Size&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">best_pop_size</span><span class="p">)]</span>
-</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="n">run_stats_best_run</span><span class="p">[[</span><span class="s2">&quot;Iteration&quot;</span><span class="p">,</span> <span class="s2">&quot;Fitness&quot;</span><span class="p">,</span> <span class="s2">&quot;FEvals&quot;</span><span class="p">,</span> <span class="s2">&quot;Time&quot;</span><span class="p">]]</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">run_stats_best_run = df_run_stats[(df_run_stats["Mutation Rate"] == best_mr) &amp; (df_run_stats["Population Size"] == best_pop_size)]
+run_stats_best_run[["Iteration", "Fitness", "FEvals", "Time"]]</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1693,9 +1665,8 @@ to determine which run each row came from.</p>
 </div>
 
 <p>And the best state associated with this is:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">best_state</span> <span class="o">=</span> <span class="n">run_stats_best_run</span><span class="p">[[</span><span class="s2">&quot;State&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="n">best_state</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">best_state = run_stats_best_run[["State"]].tail(1)
+best_state</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1727,67 +1698,59 @@ to determine which run each row came from.</p>
 </div>
 
 <p>For the following node ordering:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nb">print</span><span class="p">([</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">problem</span><span class="o">.</span><span class="n">source_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">])</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>[0, 2, 8, 1, 3, 4, 6, 7, 9, 5]
-</code></pre></div>
+<pre class="highlight"><code class="language-python">print([n for n in problem.source_graph.nodes])</code></pre>
+<pre class="highlight"><code>[0, 2, 8, 1, 3, 4, 6, 7, 9, 5]</code></pre>
 <p>Reordering the state by ascending node number gives the following:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">color_indexes</span> <span class="o">=</span> <span class="n">literal_eval</span><span class="p">(</span><span class="n">run_stats_best_run</span><span class="p">[</span><span class="s2">&quot;State&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="n">ordered_state</span> <span class="o">=</span> <span class="p">[</span><span class="n">color_indexes</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">problem</span><span class="o">.</span><span class="n">source_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">]</span>
-</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">ordered_state</span><span class="p">)</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>[0, 2, 2, 1, 0, 0, 0, 1, 1, 2]
-</code></pre></div>
+<pre class="highlight"><code class="language-python">color_indexes = literal_eval(run_stats_best_run["State"].tail(1).values[0])
+ordered_state = [color_indexes[n] for n in problem.source_graph.nodes]
+print(ordered_state)</code></pre>
+<pre class="highlight"><code>[0, 2, 2, 1, 0, 0, 0, 1, 1, 2]</code></pre>
 <p>Which results in a graph looking like this:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lightcoral&quot;</span><span class="p">,</span> <span class="s2">&quot;lightgreen&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">]</span>
-</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="n">node_color_map</span> <span class="o">=</span> <span class="p">[</span><span class="n">colors</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">ordered_state</span><span class="p">]</span>
-</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
-</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">source_graph</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">source_graph</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_color_map</span><span class="p">)</span>
-</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">colors = ["lightcoral", "lightgreen", "yellow"]
+node_color_map = [colors[s] for s in ordered_state]
+
+nx.draw(problem.source_graph, pos=nx.spring_layout(problem.source_graph, seed=3), with_labels=True, node_color=node_color_map)
+plt.show()</code></pre>
 <p><img alt="png" src="../problem_examples_files/problem_examples_56_0.png" /></p>
 <h2 id="example-3-generating-and-running-tsp-using-the-ga-algorithm">Example 3: Generating and Running TSP using the GA algorithm<a class="headerlink" href="#example-3-generating-and-running-tsp-using-the-ga-algorithm" title="Permanent link">#</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># Generate a new TSP problem using a fixed seed.</span>
-</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="n">problem</span> <span class="o">=</span> <span class="n">TSPGenerator</span><span class="p">()</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">123456</span><span class="p">,</span> <span class="n">number_of_cities</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python"># Generate a new TSP problem using a fixed seed.
+problem = TSPGenerator().generate(seed=123456, number_of_cities=20)</code></pre>
 <p>The input graph generated for the problem looks like this:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Prepare 2 plots</span>
-</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
-</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
-</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">coords</span><span class="p">):</span>
-</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;cornflowerblue&quot;</span><span class="p">)</span>  <span class="c1"># plot A</span>
-</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a><span class="n">node_labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">source_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)}</span>
-</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">node_labels</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a><span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>    <span class="n">x</span><span class="p">,</span>
-</span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>    <span class="n">y</span><span class="p">,</span>
-</span><span id="__span-30-12"><a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a>    <span class="n">node_labels</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-</span><span id="__span-30-13"><a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a>    <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
-</span><span id="__span-30-14"><a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a>    <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
-</span><span id="__span-30-15"><a id="__codelineno-30-15" name="__codelineno-30-15" href="#__codelineno-30-15"></a>    <span class="n">c</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
-</span><span id="__span-30-16"><a id="__codelineno-30-16" name="__codelineno-30-16" href="#__codelineno-30-16"></a>    <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
-</span><span id="__span-30-17"><a id="__codelineno-30-17" name="__codelineno-30-17" href="#__codelineno-30-17"></a>    <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;circle,pad=0.15&quot;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s2">&quot;cornflowerblue&quot;</span><span class="p">),</span>
-</span><span id="__span-30-18"><a id="__codelineno-30-18" name="__codelineno-30-18" href="#__codelineno-30-18"></a><span class="p">)</span>
-</span><span id="__span-30-19"><a id="__codelineno-30-19" name="__codelineno-30-19" href="#__codelineno-30-19"></a>
-</span><span id="__span-30-20"><a id="__codelineno-30-20" name="__codelineno-30-20" href="#__codelineno-30-20"></a><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</span><span id="__span-30-21"><a id="__codelineno-30-21" name="__codelineno-30-21" href="#__codelineno-30-21"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">fig, ax = plt.subplots(1)  # Prepare 2 plots
+ax.set_yticklabels([])
+ax.set_xticklabels([])
+for i, (x, y) in enumerate(problem.coords):
+    ax.scatter(x, y, s=200, c="cornflowerblue")  # plot A
+node_labels = {k: str(v) for k, v in enumerate(string.ascii_uppercase) if k &lt; len(problem.source_graph.nodes)}
+for i in node_labels.keys():
+    x, y = problem.coords[i]
+plt.text(
+    x,
+    y,
+    node_labels[i],
+    ha="center",
+    va="center",
+    c="white",
+    fontweight="bold",
+    bbox=dict(boxstyle=f"circle,pad=0.15", fc="cornflowerblue"),
+)
+
+plt.tight_layout()
+plt.show()</code></pre>
 <p><img alt="png" src="../problem_examples_files/problem_examples_60_0.png" /></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># create a runner class and solve the problem</span>
-</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="n">ga</span> <span class="o">=</span> <span class="n">GARunner</span><span class="p">(</span>
-</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>    <span class="n">problem</span><span class="o">=</span><span class="n">problem</span><span class="p">,</span>
-</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>    <span class="n">experiment_name</span><span class="o">=</span><span class="s2">&quot;tsp_ga&quot;</span><span class="p">,</span>
-</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>    <span class="n">output_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># note: specify an output directory to have results saved to disk</span>
-</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>    <span class="n">seed</span><span class="o">=</span><span class="mi">123456</span><span class="p">,</span>
-</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>    <span class="n">iteration_list</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">),</span>
-</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>    <span class="n">population_sizes</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
-</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>    <span class="n">mutation_rates</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
-</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a><span class="p">)</span>
-</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>
-</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a><span class="c1"># the two data frames will contain the results</span>
-</span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a><span class="n">df_run_stats</span><span class="p">,</span> <span class="n">df_run_curves</span> <span class="o">=</span> <span class="n">ga</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python"># create a runner class and solve the problem
+ga = GARunner(
+    problem=problem,
+    experiment_name="tsp_ga",
+    output_directory=None,  # note: specify an output directory to have results saved to disk
+    seed=123456,
+    iteration_list=2 ** np.arange(11),
+    population_sizes=[10, 20],
+    mutation_rates=[0.1, 0.25, 0.5],
+)
+
+# the two data frames will contain the results
+df_run_stats, df_run_curves = ga.run()</code></pre>
 <p>The preceding code will run the <code>GA</code> algorithm nine times for at most 1024 iterations per run.<br />
 Each run is a permutation from the list of <code>population_sizes</code> and <code>mutation_rates</code>.</p>
 <p>Note that the initial state parameters here are just toy values picked specifically<br />
@@ -1798,8 +1761,7 @@ that the grading is unlikely to go the way you would like.</p>
 <p>The output in the <code>df_run_stats</code> dataframe contains snapshots of the state of the algorithm at the iterations<br />
 specified in the <code>iteration_list</code> passed into the runner class.</p>
 <p>The first row (corresponding to the first run of this algorithm) are as follows:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">df_run_stats</span><span class="p">[[</span><span class="s2">&quot;Iteration&quot;</span><span class="p">,</span> <span class="s2">&quot;Fitness&quot;</span><span class="p">,</span> <span class="s2">&quot;FEvals&quot;</span><span class="p">,</span> <span class="s2">&quot;Time&quot;</span><span class="p">,</span> <span class="s2">&quot;State&quot;</span><span class="p">]][:</span><span class="mi">1</span><span class="p">]</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">df_run_stats[["Iteration", "Fitness", "FEvals", "Time", "State"]][:1]</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1840,9 +1802,8 @@ specified in the <code>iteration_list</code> passed into the runner class.</p>
 
 <p>The state information is excluded from the previous output.</p>
 <p>A sample of this is below:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="n">state_sample</span> <span class="o">=</span> <span class="n">df_run_stats</span><span class="p">[[</span><span class="s2">&quot;Population Size&quot;</span><span class="p">,</span> <span class="s2">&quot;Mutation Rate&quot;</span><span class="p">]][:</span><span class="mi">1</span><span class="p">]</span>
-</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="n">state_sample</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">state_sample = df_run_stats[["Population Size", "Mutation Rate"]][:1]
+state_sample</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1879,10 +1840,9 @@ specified in the <code>iteration_list</code> passed into the runner class.</p>
 As TSP is a minimization problem, you'd pick the row with the minimum fitness.</p>
 <p>However, I'm going to look in the <code>run_curves</code> (which stores minimal basic information every iteration) to<br />
 find out which input state achieved the best fitness in the fewest fitness evaluations.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="n">best_fitness</span> <span class="o">=</span> <span class="n">df_run_curves</span><span class="p">[</span><span class="s2">&quot;Fitness&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="n">best_runs</span> <span class="o">=</span> <span class="n">df_run_curves</span><span class="p">[</span><span class="n">df_run_curves</span><span class="p">[</span><span class="s2">&quot;Fitness&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">best_fitness</span><span class="p">]</span>
-</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="n">best_runs</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">best_fitness = df_run_curves["Fitness"].min()
+best_runs = df_run_curves[df_run_curves["Fitness"] == best_fitness]
+best_runs[:10]</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2018,12 +1978,10 @@ find out which input state achieved the best fitness in the fewest fitness evalu
 <p>This gives us nine candidates for the best run. We are going to pick the one with<br />
 that reached the best fitness value in the fewest number of evaluations.</p>
 <p>(We could also have chosen to use <code>Iterations</code> as our criteria.)</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="n">minimum_evaluations</span> <span class="o">=</span> <span class="n">best_runs</span><span class="p">[</span><span class="s2">&quot;FEvals&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="n">best_run</span> <span class="o">=</span> <span class="n">best_runs</span><span class="p">[</span><span class="n">best_runs</span><span class="p">[</span><span class="s2">&quot;FEvals&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">minimum_evaluations</span><span class="p">]</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">minimum_evaluations = best_runs["FEvals"].min()
+best_run = best_runs[best_runs["FEvals"] == minimum_evaluations]</code></pre>
 <p>The best runs using these criteria is as follows:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="n">best_run</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">best_run</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2067,20 +2025,17 @@ that reached the best fitness value in the fewest number of evaluations.</p>
 </div>
 
 <p>This has the following identifying state information:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="n">best_mr</span> <span class="o">=</span> <span class="n">best_run</span><span class="p">[</span><span class="s2">&quot;Mutation Rate&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="n">best_pop_size</span> <span class="o">=</span> <span class="n">best_run</span><span class="p">[</span><span class="s2">&quot;Population Size&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best Mutation Rate: </span><span class="si">{</span><span class="n">best_mr</span><span class="si">}</span><span class="s2">, best Population Size: </span><span class="si">{</span><span class="n">best_pop_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>Best Mutation Rate: 0.1, best Population Size: 20
-</code></pre></div>
+<pre class="highlight"><code class="language-python">best_mr = best_run["Mutation Rate"].iloc()[0]
+best_pop_size = best_run["Population Size"].iloc()[0]
+print(f"Best Mutation Rate: {best_mr}, best Population Size: {best_pop_size}")</code></pre>
+<pre class="highlight"><code>Best Mutation Rate: 0.1, best Population Size: 20</code></pre>
 <p>To map this back to the <code>run_stats</code> we look at the configuration data included in<br />
 the curve data. The curve data includes at least the minimum identifying information<br />
 to determine which run each row came from.</p>
 <p>In this case, the values we are looking for are the <code>Mutation Rate</code> and <code>Population Size</code>.</p>
 <p>So, we are looking for all rows in <code>df_run_stats</code> where the mutation rate and population size are equal to our best values.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="n">run_stats_best_run</span> <span class="o">=</span> <span class="n">df_run_stats</span><span class="p">[(</span><span class="n">df_run_stats</span><span class="p">[</span><span class="s2">&quot;Mutation Rate&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">best_mr</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_run_stats</span><span class="p">[</span><span class="s2">&quot;Population Size&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">best_pop_size</span><span class="p">)]</span>
-</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="n">run_stats_best_run</span><span class="p">[[</span><span class="s2">&quot;Iteration&quot;</span><span class="p">,</span> <span class="s2">&quot;Fitness&quot;</span><span class="p">,</span> <span class="s2">&quot;FEvals&quot;</span><span class="p">,</span> <span class="s2">&quot;Time&quot;</span><span class="p">]]</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">run_stats_best_run = df_run_stats[(df_run_stats["Mutation Rate"] == best_mr) &amp; (df_run_stats["Population Size"] == best_pop_size)]
+run_stats_best_run[["Iteration", "Fitness", "FEvals", "Time"]]</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2195,9 +2150,8 @@ to determine which run each row came from.</p>
 </div>
 
 <p>And the best state associated with this is:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="n">best_state</span> <span class="o">=</span> <span class="n">run_stats_best_run</span><span class="p">[[</span><span class="s2">&quot;State&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="n">best_state</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">best_state = run_stats_best_run[["State"]].tail(1)
+best_state</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2229,106 +2183,95 @@ to determine which run each row came from.</p>
 </div>
 
 <p>Which results in a graph looking like this:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="n">ordered_state</span> <span class="o">=</span> <span class="n">literal_eval</span><span class="p">(</span><span class="n">run_stats_best_run</span><span class="p">[</span><span class="s2">&quot;State&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="n">edge_labels</span> <span class="o">=</span> <span class="p">{(</span><span class="n">ordered_state</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">ordered_state</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">ordered_state</span><span class="p">)]):</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s2">➜&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ordered_state</span><span class="p">))}</span>
-</span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Prepare 2 plots</span>
-</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
-</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
-</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">coords</span><span class="p">):</span>
-</span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;green&quot;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">5</span> <span class="k">else</span> <span class="s2">&quot;cornflowerblue&quot;</span><span class="p">)</span>  <span class="c1"># plot A</span>
-</span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>
-</span><span id="__span-41-7"><a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ordered_state</span><span class="p">)):</span>
-</span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>    <span class="n">start_node</span> <span class="o">=</span> <span class="n">ordered_state</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-</span><span id="__span-41-9"><a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a><span class="n">end_node</span> <span class="o">=</span> <span class="n">ordered_state</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">ordered_state</span><span class="p">)]</span>
-</span><span id="__span-41-10"><a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a><span class="n">start_pos</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">start_node</span><span class="p">]</span>
-</span><span id="__span-41-11"><a id="__codelineno-41-11" name="__codelineno-41-11" href="#__codelineno-41-11"></a><span class="n">end_pos</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">end_node</span><span class="p">]</span>
-</span><span id="__span-41-12"><a id="__codelineno-41-12" name="__codelineno-41-12" href="#__codelineno-41-12"></a><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
-</span><span id="__span-41-13"><a id="__codelineno-41-13" name="__codelineno-41-13" href="#__codelineno-41-13"></a>    <span class="s2">&quot;&quot;</span><span class="p">,</span>
-</span><span id="__span-41-14"><a id="__codelineno-41-14" name="__codelineno-41-14" href="#__codelineno-41-14"></a>    <span class="n">xy</span><span class="o">=</span><span class="n">start_pos</span><span class="p">,</span>
-</span><span id="__span-41-15"><a id="__codelineno-41-15" name="__codelineno-41-15" href="#__codelineno-41-15"></a>    <span class="n">xycoords</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
-</span><span id="__span-41-16"><a id="__codelineno-41-16" name="__codelineno-41-16" href="#__codelineno-41-16"></a>    <span class="n">xytext</span><span class="o">=</span><span class="n">end_pos</span><span class="p">,</span>
-</span><span id="__span-41-17"><a id="__codelineno-41-17" name="__codelineno-41-17" href="#__codelineno-41-17"></a>    <span class="n">textcoords</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
-</span><span id="__span-41-18"><a id="__codelineno-41-18" name="__codelineno-41-18" href="#__codelineno-41-18"></a>    <span class="n">c</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
-</span><span id="__span-41-19"><a id="__codelineno-41-19" name="__codelineno-41-19" href="#__codelineno-41-19"></a>    <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3&quot;</span><span class="p">),</span>
-</span><span id="__span-41-20"><a id="__codelineno-41-20" name="__codelineno-41-20" href="#__codelineno-41-20"></a><span class="p">)</span>
-</span><span id="__span-41-21"><a id="__codelineno-41-21" name="__codelineno-41-21" href="#__codelineno-41-21"></a><span class="n">node_labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">source_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)}</span>
-</span><span id="__span-41-22"><a id="__codelineno-41-22" name="__codelineno-41-22" href="#__codelineno-41-22"></a>
-</span><span id="__span-41-23"><a id="__codelineno-41-23" name="__codelineno-41-23" href="#__codelineno-41-23"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">node_labels</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-</span><span id="__span-41-24"><a id="__codelineno-41-24" name="__codelineno-41-24" href="#__codelineno-41-24"></a>    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-</span><span id="__span-41-25"><a id="__codelineno-41-25" name="__codelineno-41-25" href="#__codelineno-41-25"></a><span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-</span><span id="__span-41-26"><a id="__codelineno-41-26" name="__codelineno-41-26" href="#__codelineno-41-26"></a>    <span class="n">x</span><span class="p">,</span>
-</span><span id="__span-41-27"><a id="__codelineno-41-27" name="__codelineno-41-27" href="#__codelineno-41-27"></a>    <span class="n">y</span><span class="p">,</span>
-</span><span id="__span-41-28"><a id="__codelineno-41-28" name="__codelineno-41-28" href="#__codelineno-41-28"></a>    <span class="n">node_labels</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-</span><span id="__span-41-29"><a id="__codelineno-41-29" name="__codelineno-41-29" href="#__codelineno-41-29"></a>    <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
-</span><span id="__span-41-30"><a id="__codelineno-41-30" name="__codelineno-41-30" href="#__codelineno-41-30"></a>    <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
-</span><span id="__span-41-31"><a id="__codelineno-41-31" name="__codelineno-41-31" href="#__codelineno-41-31"></a>    <span class="n">c</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
-</span><span id="__span-41-32"><a id="__codelineno-41-32" name="__codelineno-41-32" href="#__codelineno-41-32"></a>    <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
-</span><span id="__span-41-33"><a id="__codelineno-41-33" name="__codelineno-41-33" href="#__codelineno-41-33"></a>    <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;circle,pad=0.15&quot;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s2">&quot;green&quot;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">ordered_state</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;cornflowerblue&quot;</span><span class="p">),</span>
-</span><span id="__span-41-34"><a id="__codelineno-41-34" name="__codelineno-41-34" href="#__codelineno-41-34"></a><span class="p">)</span>
-</span><span id="__span-41-35"><a id="__codelineno-41-35" name="__codelineno-41-35" href="#__codelineno-41-35"></a>
-</span><span id="__span-41-36"><a id="__codelineno-41-36" name="__codelineno-41-36" href="#__codelineno-41-36"></a><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</span><span id="__span-41-37"><a id="__codelineno-41-37" name="__codelineno-41-37" href="#__codelineno-41-37"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">ordered_state = literal_eval(run_stats_best_run["State"].tail(1).values[0])
+edge_labels = {(ordered_state[i], ordered_state[(i + 1) % len(ordered_state)]): f"{str(i + 1)}➜" for i in range(len(ordered_state))}</code></pre>
+<pre class="highlight"><code class="language-python">fig, ax = plt.subplots(1)  # Prepare 2 plots
+ax.set_yticklabels([])
+ax.set_xticklabels([])
+for i, (x, y) in enumerate(problem.coords):
+    ax.scatter(x, y, s=1, c="green" if i == 5 else "cornflowerblue")  # plot A
+
+for i in range(len(ordered_state)):
+    start_node = ordered_state[i]
+end_node = ordered_state[(i + 1) % len(ordered_state)]
+start_pos = problem.coords[start_node]
+end_pos = problem.coords[end_node]
+ax.annotate(
+    "",
+    xy=start_pos,
+    xycoords="data",
+    xytext=end_pos,
+    textcoords="data",
+    c="red",
+    arrowprops=dict(arrowstyle="-&gt;", ec="red", connectionstyle="arc3"),
+)
+node_labels = {k: str(v) for k, v in enumerate(string.ascii_uppercase) if k &lt; len(problem.source_graph.nodes)}
+
+for i in node_labels.keys():
+    x, y = problem.coords[i]
+plt.text(
+    x,
+    y,
+    node_labels[i],
+    ha="center",
+    va="center",
+    c="white",
+    fontweight="bold",
+    bbox=dict(boxstyle=f"circle,pad=0.15", fc="green" if i == ordered_state[0] else "cornflowerblue"),
+)
+
+plt.tight_layout()
+plt.show()</code></pre>
 <p><img alt="png" src="../problem_examples_files/problem_examples_80_0.png" /></p>
 <p>And, to verify that the route is correct (or at least, the shortest one found):</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="n">all_edge_lengths</span> <span class="o">=</span> <span class="p">{(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span> <span class="n">d</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">problem</span><span class="o">.</span><span class="n">distances</span><span class="p">}</span>
-</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="n">all_edge_lengths</span><span class="o">.</span><span class="n">update</span><span class="p">({(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span> <span class="n">d</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">problem</span><span class="o">.</span><span class="n">distances</span><span class="p">})</span>
-</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>
-</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="n">route_length</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">all_edge_lengths</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">edge_labels</span><span class="o">.</span><span class="n">keys</span><span class="p">()])</span>
-</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;route_length: (</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">route_length</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="si">}</span><span class="s2">) equal to best_fitness: (</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">best_fitness</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>route_length: (941.582778) equal to best_fitness: (941.582778)
-</code></pre></div>
+<pre class="highlight"><code class="language-python">all_edge_lengths = {(x, y): d for x, y, d in problem.distances}
+all_edge_lengths.update({(y, x): d for x, y, d in problem.distances})
+
+route_length = sum([all_edge_lengths[k] for k in edge_labels.keys()])
+print(f"route_length: ({round(route_length, 6)}) equal to best_fitness: ({round(best_fitness, 6)})")</code></pre>
+<pre class="highlight"><code>route_length: (941.582778) equal to best_fitness: (941.582778)</code></pre>
 <h2 id="example-4-using-the-nngsrunner-with-the-rhc-algorithm">Example 4: Using the NNGSRunner with the RHC algorithm<a class="headerlink" href="#example-4-using-the-nngsrunner-with-the-rhc-algorithm" title="Permanent link">#</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="c1"># Load and Split data into training and test sets</span>
-</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="n">data</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
-</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
-</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a>    <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123456</span>
-</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="p">)</span>
-</span><span id="__span-43-6"><a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a>
-</span><span id="__span-43-7"><a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a><span class="c1"># Normalize feature data</span>
-</span><span id="__span-43-8"><a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a><span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
-</span><span id="__span-43-9"><a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a><span class="n">X_train_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
-</span><span id="__span-43-10"><a id="__codelineno-43-10" name="__codelineno-43-10" href="#__codelineno-43-10"></a><span class="n">X_test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-</span><span id="__span-43-11"><a id="__codelineno-43-11" name="__codelineno-43-11" href="#__codelineno-43-11"></a>
-</span><span id="__span-43-12"><a id="__codelineno-43-12" name="__codelineno-43-12" href="#__codelineno-43-12"></a><span class="c1"># One hot encode target values</span>
-</span><span id="__span-43-13"><a id="__codelineno-43-13" name="__codelineno-43-13" href="#__codelineno-43-13"></a><span class="n">one_hot</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">()</span>
-</span><span id="__span-43-14"><a id="__codelineno-43-14" name="__codelineno-43-14" href="#__codelineno-43-14"></a><span class="n">y_train_hot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">one_hot</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">todense</span><span class="p">())</span>
-</span><span id="__span-43-15"><a id="__codelineno-43-15" name="__codelineno-43-15" href="#__codelineno-43-15"></a><span class="n">y_test_hot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">one_hot</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">todense</span><span class="p">())</span>
-</span><span id="__span-43-16"><a id="__codelineno-43-16" name="__codelineno-43-16" href="#__codelineno-43-16"></a>
-</span><span id="__span-43-17"><a id="__codelineno-43-17" name="__codelineno-43-17" href="#__codelineno-43-17"></a><span class="n">grid_search_parameters</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-43-18"><a id="__codelineno-43-18" name="__codelineno-43-18" href="#__codelineno-43-18"></a>    <span class="s1">&#39;max_iters&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1000</span><span class="p">],</span>  <span class="c1"># nn params</span>
-</span><span id="__span-43-19"><a id="__codelineno-43-19" name="__codelineno-43-19" href="#__codelineno-43-19"></a>    <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1e-2</span><span class="p">],</span>  <span class="c1"># nn params</span>
-</span><span id="__span-43-20"><a id="__codelineno-43-20" name="__codelineno-43-20" href="#__codelineno-43-20"></a>    <span class="s1">&#39;activation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">mlrose</span><span class="o">.</span><span class="n">relu</span><span class="p">],</span>  <span class="c1"># nn params</span>
-</span><span id="__span-43-21"><a id="__codelineno-43-21" name="__codelineno-43-21" href="#__codelineno-43-21"></a>    <span class="s1">&#39;restarts&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># rhc params</span>
-</span><span id="__span-43-22"><a id="__codelineno-43-22" name="__codelineno-43-22" href="#__codelineno-43-22"></a><span class="p">}</span>
-</span><span id="__span-43-23"><a id="__codelineno-43-23" name="__codelineno-43-23" href="#__codelineno-43-23"></a>
-</span><span id="__span-43-24"><a id="__codelineno-43-24" name="__codelineno-43-24" href="#__codelineno-43-24"></a><span class="n">nnr</span> <span class="o">=</span> <span class="n">NNGSRunner</span><span class="p">(</span><span class="n">x_train</span><span class="o">=</span><span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">y_train</span><span class="o">=</span><span class="n">y_train_hot</span><span class="p">,</span> <span class="n">x_test</span><span class="o">=</span><span class="n">X_test_scaled</span><span class="p">,</span> <span class="n">y_test</span><span class="o">=</span><span class="n">y_test_hot</span><span class="p">,</span> <span class="n">experiment_name</span><span class="o">=</span><span class="s1">&#39;nn_test_rhc&#39;</span><span class="p">,</span>
-</span><span id="__span-43-25"><a id="__codelineno-43-25" name="__codelineno-43-25" href="#__codelineno-43-25"></a>                 <span class="n">algorithm</span><span class="o">=</span><span class="n">mlrose</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">rhc</span><span class="o">.</span><span class="n">random_hill_climb</span><span class="p">,</span> <span class="n">grid_search_parameters</span><span class="o">=</span><span class="n">grid_search_parameters</span><span class="p">,</span>
-</span><span id="__span-43-26"><a id="__codelineno-43-26" name="__codelineno-43-26" href="#__codelineno-43-26"></a>                 <span class="n">iteration_list</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span> <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="p">]],</span> <span class="n">clip_max</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123456</span><span class="p">)</span>
-</span><span id="__span-43-27"><a id="__codelineno-43-27" name="__codelineno-43-27" href="#__codelineno-43-27"></a>
-</span><span id="__span-43-28"><a id="__codelineno-43-28" name="__codelineno-43-28" href="#__codelineno-43-28"></a><span class="n">run_stats_df</span><span class="p">,</span> <span class="n">curves_df</span><span class="p">,</span> <span class="n">cv_results_df</span><span class="p">,</span> <span class="n">grid_search_cv</span> <span class="o">=</span> <span class="n">nnr</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>Fitting 5 folds for each of 1 candidates, totalling 5 fits
-</code></pre></div>
+<pre class="highlight"><code class="language-python"># Load and Split data into training and test sets
+data = load_iris()
+X_train, X_test, y_train, y_test = train_test_split(
+    data.data, data.target, test_size=0.3, random_state=123456
+)
+
+# Normalize feature data
+scaler = MinMaxScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# One hot encode target values
+one_hot = OneHotEncoder()
+y_train_hot = np.asarray(one_hot.fit_transform(y_train.reshape(-1, 1)).todense())
+y_test_hot = np.asarray(one_hot.transform(y_test.reshape(-1, 1)).todense())
+
+grid_search_parameters = {
+    'max_iters': [1000],  # nn params
+    'learning_rate': [1e-2],  # nn params
+    'activation': [mlrose.relu],  # nn params
+    'restarts': [1],  # rhc params
+}
+
+nnr = NNGSRunner(x_train=X_train_scaled, y_train=y_train_hot, x_test=X_test_scaled, y_test=y_test_hot, experiment_name='nn_test_rhc',
+                 algorithm=mlrose.algorithms.rhc.random_hill_climb, grid_search_parameters=grid_search_parameters,
+                 iteration_list=[1, 10, 50, 100, 250, 500, 1000], hidden_layer_sizes=[[2]], clip_max=5, n_jobs=5, seed=123456)
+
+run_stats_df, curves_df, cv_results_df, grid_search_cv = nnr.run()</code></pre>
+<pre class="highlight"><code>Fitting 5 folds for each of 1 candidates, totalling 5 fits</code></pre>
 <p>The runner returns the <code>run_stats</code> and <code>curves</code> corresponding to <em>best</em> hyperparameter combination,<br />
 as well as the cross validation results and the underlying <code>GridSearchCV</code> object used in the run.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">grid_search_cv</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_scaled</span><span class="p">)</span>
-</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="n">y_test_accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_test_hot</span><span class="p">),</span> <span class="n">y_test_pred</span><span class="p">)</span>
-</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="n">y_test_accuracy</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>0.3333333333333333
-</code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="n">y_train_pred</span> <span class="o">=</span> <span class="n">grid_search_cv</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train_scaled</span><span class="p">)</span>
-</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="n">y_train_accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_train_hot</span><span class="p">,</span> <span class="n">y_train_pred</span><span class="p">)</span>
-</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="n">y_train_accuracy</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code>0.3333333333333333
-</code></pre></div>
+<pre class="highlight"><code class="language-python">y_test_pred = grid_search_cv.predict(X_test_scaled)
+y_test_accuracy = accuracy_score(np.asarray(y_test_hot), y_test_pred)
+y_test_accuracy</code></pre>
+<pre class="highlight"><code>0.3333333333333333</code></pre>
+<pre class="highlight"><code class="language-python">y_train_pred = grid_search_cv.predict(X_train_scaled)
+y_train_accuracy = accuracy_score(y_train_hot, y_train_pred)
+y_train_accuracy</code></pre>
+<pre class="highlight"><code>0.3333333333333333</code></pre>
 <p>Run stats dataframe</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="n">run_stats_df</span><span class="p">[[</span><span class="s2">&quot;current_restart&quot;</span><span class="p">,</span> <span class="s2">&quot;Iteration&quot;</span><span class="p">,</span> <span class="s2">&quot;Fitness&quot;</span><span class="p">,</span> <span class="s2">&quot;FEvals&quot;</span><span class="p">,</span> <span class="s2">&quot;Time&quot;</span><span class="p">,</span> <span class="s2">&quot;learning_rate&quot;</span><span class="p">]][:</span><span class="mi">14</span><span class="p">]</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">run_stats_df[["current_restart", "Iteration", "Fitness", "FEvals", "Time", "learning_rate"]][:14]</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2487,8 +2430,7 @@ as well as the cross validation results and the underlying <code>GridSearchCV</c
 </div>
 
 <p>curves dataframe</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="n">curves_df</span><span class="p">[[</span><span class="s2">&quot;current_restart&quot;</span><span class="p">,</span> <span class="s2">&quot;Iteration&quot;</span><span class="p">,</span> <span class="s2">&quot;Fitness&quot;</span><span class="p">,</span> <span class="s2">&quot;FEvals&quot;</span><span class="p">,</span> <span class="s2">&quot;Time&quot;</span><span class="p">,</span> <span class="s2">&quot;learning_rate&quot;</span><span class="p">]][:</span><span class="mi">20</span><span class="p">]</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">curves_df[["current_restart", "Iteration", "Fitness", "FEvals", "Time", "learning_rate"]][:20]</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2701,19 +2643,18 @@ as well as the cross validation results and the underlying <code>GridSearchCV</c
 </div>
 
 <p>cv results dataframe</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="n">cv_results_df</span><span class="p">[</span>
-</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>    <span class="p">[</span>
-</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>        <span class="s2">&quot;mean_test_score&quot;</span><span class="p">,</span>
-</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>        <span class="s2">&quot;rank_test_score&quot;</span><span class="p">,</span>
-</span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>        <span class="s2">&quot;mean_train_score&quot;</span><span class="p">,</span>
-</span><span id="__span-48-6"><a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a>        <span class="s2">&quot;param_activation&quot;</span><span class="p">,</span>
-</span><span id="__span-48-7"><a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a>        <span class="s2">&quot;param_hidden_layer_sizes&quot;</span><span class="p">,</span>
-</span><span id="__span-48-8"><a id="__codelineno-48-8" name="__codelineno-48-8" href="#__codelineno-48-8"></a>        <span class="s2">&quot;param_learning_rate&quot;</span><span class="p">,</span>
-</span><span id="__span-48-9"><a id="__codelineno-48-9" name="__codelineno-48-9" href="#__codelineno-48-9"></a>        <span class="s2">&quot;param_max_iters&quot;</span><span class="p">,</span>
-</span><span id="__span-48-10"><a id="__codelineno-48-10" name="__codelineno-48-10" href="#__codelineno-48-10"></a>        <span class="s2">&quot;param_restarts&quot;</span><span class="p">,</span>
-</span><span id="__span-48-11"><a id="__codelineno-48-11" name="__codelineno-48-11" href="#__codelineno-48-11"></a>    <span class="p">]</span>
-</span><span id="__span-48-12"><a id="__codelineno-48-12" name="__codelineno-48-12" href="#__codelineno-48-12"></a><span class="p">]</span>
-</span></code></pre></div>
+<pre class="highlight"><code class="language-python">cv_results_df[
+    [
+        "mean_test_score",
+        "rank_test_score",
+        "mean_train_score",
+        "param_activation",
+        "param_hidden_layer_sizes",
+        "param_learning_rate",
+        "param_max_iters",
+        "param_restarts",
+    ]
+]</code></pre>
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
