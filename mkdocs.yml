@@ -24,6 +24,8 @@ nav:
       - 2 - Fitness function in code: tutorial_examples.md
       - 3 - Using Neural Network Runners: nn_examples.md
       - 4 - How to use NeuralNetwork() with sklearn (EASY): nn_class_with_sklearn.md
+      - 5 - Run mlrose FASTER - parallelizable code: parallelizable_runs.md
+      
 theme: 
   name: readthedocs
   color_mode: auto
